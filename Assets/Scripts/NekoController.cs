@@ -8,8 +8,7 @@ public class NekoController : MonoBehaviour
     Transform target;
     
     [SerializeField] float speed;
-    //bool isExistTarget = true;
-    //bool isTrun,isSetTarget;
+    CatPoolController nekoPool;
     CircleCollider2D cc2d;
 
     enum STATE
@@ -17,20 +16,33 @@ public class NekoController : MonoBehaviour
         WALK,
         DASH,
         ESCAPE,
-        TURN
+        TURN,
+        LOSE
     }
     STATE state;
 
     private void Start()
     {
+        nekoPool = transform.parent.GetComponent<CatPoolController>();
+        gameObject.SetActive(false);
         cc2d = GetComponent<CircleCollider2D>();
         speed = Random.Range(1.5f, 3.5f);
     }
 
-    public void Settarget(Transform _tf)
+    public void Settarget()
     {
-        //target = _tf;
+        
         state = STATE.WALK;
+    }
+
+    public void ShowInStage(Vector3 _pos)
+    {
+        transform.position = _pos;
+    }
+
+    public void HideFromStage()
+    {
+        nekoPool.Collect(this);
     }
 
     void Update()
@@ -43,7 +55,7 @@ public class NekoController : MonoBehaviour
                 break;
 
             case STATE.DASH:
-                transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime * 2);
+                transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime * 3);
                 break;
             case STATE.ESCAPE:
                 transform.Translate(Vector3.up * speed * Time.deltaTime * 2);
@@ -51,32 +63,61 @@ public class NekoController : MonoBehaviour
             case STATE.TURN:
                 transform.Translate(Vector3.up * speed * Time.deltaTime * 2);
                 break;
+            case STATE.LOSE:
+                transform.Translate(Vector3.up * speed * Time.deltaTime * 0.1f);
+                break;
         }
 
         if ((state == STATE.TURN || state == STATE.ESCAPE) && transform.position.y > 6f)
         {
-            Destroy(gameObject);
+            HideFromStage();
         }
-
-
     }
+
+
+
 
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.CompareTag("Area") )
         {
-            AreaController _area = collision.GetComponent<AreaController>();
-
-            target = collision.GetComponentInChildren<Transform>();
-            Debug.Log(target);
-            if(_area.state == AreaController.AREA_STATE.NORMAL && state != STATE.ESCAPE && state != STATE.TURN)
+            float _tmpDistance = 0;
+            int targetIdx = 0;
+            TargetController[] targets = collision.GetComponentsInChildren<TargetController>();
+            if(targets.Length <= 0 && state == STATE.WALK)
+            {
+                state = STATE.LOSE;
+                cc2d.enabled = false;
+                return;
+            }
+            else if(state == STATE.WALK)
+            {
+                for (int i = 0; i < targets.Length; i++)
+                {
+                    float _distance = Vector3.Distance(targets[i].transform.position, transform.position);
+                    if (i == 0)
+                    {
+                        _tmpDistance = _distance;
+                    }
+                    if (_tmpDistance > _distance)
+                    {
+                        targetIdx = i;
+                        _tmpDistance = _distance;
+                    }
+                }
+                target = targets[targetIdx].transform;
+            }
+                
+            
+            
+            if(state != STATE.ESCAPE && state != STATE.TURN)
             {
                 state = STATE.DASH;
             }
-            else if (_area.state == AreaController.AREA_STATE.ANGRY)
-            {
-                state = STATE.ESCAPE;
-            }
+        }
+        if (collision.CompareTag("AngerArea"))
+        {
+            state = STATE.ESCAPE;
         }
         
     }
@@ -86,19 +127,12 @@ public class NekoController : MonoBehaviour
         if (collision.CompareTag("Target"))
         {
             collision.transform.SetParent(transform);
+            
             state = STATE.TURN;
         }
     }
 
-    //private void OnCollisionEnter2D(Collision2D collision)
-    //{
-    //    if (collision.gameObject.CompareTag("Line"))
-    //    {
-    //        state = STATE.ESCAPE;
-    //        cc2d.enabled = false;
-    //        Destroy(collision.gameObject);
-    //    }
-    //}
+
 
 
 }
