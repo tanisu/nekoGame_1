@@ -6,7 +6,7 @@ public class OyajiController : MonoBehaviour
 {
     [SerializeField] GameObject AngerArea;
     Animator anim;
-    [SerializeField] float AngerLimit,xLimit,speed;
+    [SerializeField] float AngerLimit,xLimit,speed, tiredTime;
     float time,delInterval,angerInterval;
     
     
@@ -55,7 +55,7 @@ public class OyajiController : MonoBehaviour
                     break;
             }Å@
 
-            transform.localScale = new Vector3(-_x, 1, 1);
+            transform.localScale = new Vector3(_x, 1, 1);
             transform.Translate(new Vector3(_x, 0, 0) * Time.deltaTime * speed);
 
             
@@ -108,8 +108,12 @@ public class OyajiController : MonoBehaviour
 
     IEnumerator _istied()
     {
-        anim.SetBool("IsAnger",false);
-        yield return new WaitForSeconds(1f);
+        
+        anim.SetBool("IsTired",true);
+        yield return new WaitForSeconds(tiredTime);
+        anim.SetBool("IsAnger", false);
+        anim.SetBool("IsTired", false);
+
         state = OYAJI_STATE.WALK;
         angerInterval = AngerLimit;
 

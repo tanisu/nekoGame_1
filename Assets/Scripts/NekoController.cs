@@ -10,7 +10,7 @@ public class NekoController : MonoBehaviour
     [SerializeField] float speed;
     CatPoolController nekoPool;
     CircleCollider2D cc2d;
-
+    Animator anim;
     enum STATE
     {
         WALK,
@@ -23,6 +23,7 @@ public class NekoController : MonoBehaviour
 
     private void Start()
     {
+        anim = GetComponent<Animator>();
         nekoPool = transform.parent.GetComponent<CatPoolController>();
         gameObject.SetActive(false);
         cc2d = GetComponent<CircleCollider2D>();
@@ -87,6 +88,7 @@ public class NekoController : MonoBehaviour
             if(targets.Length <= 0 && state == STATE.WALK)
             {
                 state = STATE.LOSE;
+                anim.SetBool("isEscape", true);
                 cc2d.enabled = false;
                 return;
             }
@@ -118,6 +120,7 @@ public class NekoController : MonoBehaviour
         if (collision.CompareTag("AngerArea"))
         {
             state = STATE.ESCAPE;
+            anim.SetBool("isEscape", true);
         }
         
     }

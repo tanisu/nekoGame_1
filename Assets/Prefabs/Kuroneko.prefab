@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 8951395390264572634}
   - component: {fileID: 8951395390264572635}
   m_Layer: 0
-  m_Name: Neko
+  m_Name: Kuroneko
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: -42905403
   m_SortingLayer: 1
   m_SortingOrder: 1
-  m_Sprite: {fileID: -403750373, guid: 0385d43dbf366784aaa3beb2e889da2a, type: 3}
+  m_Sprite: {fileID: 620650182, guid: c299783bb27ccf348875141d75ae86b4, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -98,7 +98,7 @@ Animator:
   m_GameObject: {fileID: 8951395390264572636}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 851838fd6496fde4dbff7d4abf578b8f, type: 2}
+  m_Controller: {fileID: 9100000, guid: f7d5bf77eb1fe564da65252ab5cdf541, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
