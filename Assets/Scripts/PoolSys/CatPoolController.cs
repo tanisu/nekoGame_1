@@ -7,19 +7,24 @@ public class CatPoolController : MonoBehaviour
     [SerializeField] NekoController neko;
     [SerializeField] int maxCount;
     Queue<NekoController> nekoQueue;
+    public List<NekoController> nekoList;
     Vector3 setPos = new Vector3(100, 100);
 
 
     private void Awake()
     {
         nekoQueue = new Queue<NekoController>();
+        nekoList = new List<NekoController>();
 
         for(int i= 0; i < maxCount; i++)
         {
             NekoController _neko = Instantiate(neko, setPos, Quaternion.identity, transform);
             nekoQueue.Enqueue(_neko);
+            nekoList.Add(_neko);
         }
     }
+
+
 
     public NekoController Launch(Vector3 _pos)
     {

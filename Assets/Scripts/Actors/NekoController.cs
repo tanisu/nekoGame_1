@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class NekoController : MonoBehaviour
 {
@@ -11,8 +12,11 @@ public class NekoController : MonoBehaviour
     CatPoolController nekoPool;
     CircleCollider2D cc2d;
     Animator anim;
+
+    public UnityAction HitAngryArea;
     enum STATE
     {
+        STOP,
         WALK,
         DASH,
         ESCAPE,
@@ -119,6 +123,7 @@ public class NekoController : MonoBehaviour
         }
         if (collision.CompareTag("AngerArea"))
         {
+            
             state = STATE.ESCAPE;
             anim.SetBool("isEscape", true);
         }
@@ -132,6 +137,10 @@ public class NekoController : MonoBehaviour
             collision.transform.SetParent(transform);
             
             state = STATE.TURN;
+        }
+        if (collision.CompareTag("AngerArea"))
+        {
+            HitAngryArea?.Invoke();
         }
     }
 
