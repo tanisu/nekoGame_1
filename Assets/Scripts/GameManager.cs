@@ -5,19 +5,25 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     
-    [SerializeField] CatPoolController pool;
+    [SerializeField] CatPoolController[] pools;
     [SerializeField] UIController ui;
-
+    [SerializeField] OyajiController oyaji;
     int anger;
     
 
     private void Start()
     {
         ui.OffAngry = _offAngry;
-        foreach(NekoController neko in pool.nekoList)
+        ui.StartExplosion = _explosion;
+        ui.EndExplosion = _endExplosion;
+        foreach(CatPoolController pool in pools)
         {
-            neko.HitAngryArea = _addAngryGage;
+            foreach (NekoController neko in pool.nekoList)
+            {
+                neko.HitAngryArea = _addAngryGage;
+            }
         }
+        
     }
 
     void _addAngryGage()
@@ -34,5 +40,34 @@ public class GameManager : MonoBehaviour
     {
         anger = 0;
         ui.UpdateAngerText(anger);
+    }
+
+    void _explosion()
+    {
+        
+        oyaji.gameObject.SetActive(false);
+        
+        foreach(CatPoolController pool in pools)
+        {
+            pool.gameObject.SetActive(false);
+            foreach (NekoController neko in pool.nekoList)
+            {
+                neko.StopNeko();
+            }
+        }
+    }
+
+    void _endExplosion()
+    {
+        oyaji.gameObject.SetActive(true);
+
+        foreach (CatPoolController pool in pools)
+        {
+            pool.gameObject.SetActive(true);
+            foreach (NekoController neko in pool.nekoList)
+            {
+                neko.EscapeNeko();
+            }
+        }
     }
 }

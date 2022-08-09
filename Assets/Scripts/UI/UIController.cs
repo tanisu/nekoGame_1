@@ -10,8 +10,9 @@ public class UIController : MonoBehaviour
     [SerializeField] Text angerText;
     [SerializeField] Button ikariButton;
     [SerializeField] Image cutInImage,cutInPanel;
+    [SerializeField] BariaController baria;
 
-    public UnityAction OffAngry;
+    public UnityAction OffAngry, StartExplosion,EndExplosion;
     private void Start()
     {
         ikariButton.onClick.AddListener(_ikariCutIn);
@@ -29,7 +30,7 @@ public class UIController : MonoBehaviour
 
     private void _ikariCutIn()
     {
-        
+        StartExplosion?.Invoke();
         cutInImage.gameObject.SetActive(true);
         cutInPanel.gameObject.SetActive(true);
         Sequence seq = DOTween.Sequence();
@@ -39,10 +40,13 @@ public class UIController : MonoBehaviour
             .AppendCallback(()=> {
                 cutInPanel.DOFade(0f, 0.5f);
                 cutInImage.transform.DOLocalMoveX(-600, 0.5f).SetEase(Ease.InCubic).OnComplete(()=> {
+                    
                     cutInImage.transform.localPosition = new Vector3(600, 0);
+                    baria.gameObject.SetActive(true);
                 });
                 ikariButton.gameObject.SetActive(false);
                 OffAngry?.Invoke();
-            });
+                //EndExplosion?.Invoke();
+        });
     }
 }

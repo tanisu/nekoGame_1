@@ -14,7 +14,7 @@ public class NekoController : MonoBehaviour
     Animator anim;
 
     public UnityAction HitAngryArea;
-    enum STATE
+    public enum STATE
     {
         STOP,
         WALK,
@@ -23,7 +23,7 @@ public class NekoController : MonoBehaviour
         TURN,
         LOSE
     }
-    STATE state;
+    public STATE state;
 
     private void Start()
     {
@@ -32,6 +32,7 @@ public class NekoController : MonoBehaviour
         gameObject.SetActive(false);
         cc2d = GetComponent<CircleCollider2D>();
         speed = Random.Range(1.5f, 3.5f);
+        state = STATE.WALK;
     }
 
     public void Settarget()
@@ -116,7 +117,7 @@ public class NekoController : MonoBehaviour
                 
             
             
-            if(state != STATE.ESCAPE && state != STATE.TURN)
+            if(state == STATE.WALK)
             {
                 state = STATE.DASH;
             }
@@ -144,6 +145,15 @@ public class NekoController : MonoBehaviour
         }
     }
 
+    public void StopNeko()
+    {
+        state = STATE.STOP;
+    }
+
+    public void EscapeNeko()
+    {
+        state = STATE.ESCAPE;
+    }
 
 
 
