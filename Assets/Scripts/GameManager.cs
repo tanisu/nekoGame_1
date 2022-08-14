@@ -11,7 +11,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] UIController ui;
     [SerializeField] OyajiController oyaji;
     [SerializeField] AreaController area;
-
+    [SerializeField] float addAnger;
     int targetCount,loopCount;
     float anger;
     bool canRush;
@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
 
     IEnumerator _startNeko()
     {
-        Debug.Log("wait");
+        
         yield return new WaitForSeconds(1.3f);
         nekoPos.canGenerat = true;
         nekoPos.StartNekoGenerat();
@@ -93,7 +93,7 @@ public class GameManager : MonoBehaviour
 
     void _addAngryGage()
     {
-        anger += 0.5f;
+        anger += addAnger;
         ui.UpdateAnger(anger);
         if(anger >= 1)
         {

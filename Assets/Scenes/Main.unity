@@ -2049,6 +2049,7 @@ MonoBehaviour:
   ui: {fileID: 235296831}
   oyaji: {fileID: 1403191182}
   area: {fileID: 956504203}
+  addAnger: 0.2
 --- !u!4 &970746053
 Transform:
   m_ObjectHideFlags: 0

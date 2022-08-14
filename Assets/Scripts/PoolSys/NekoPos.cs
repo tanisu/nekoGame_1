@@ -49,6 +49,7 @@ public class NekoPos : MonoBehaviour
             NekoController _neko = nekoPool.Launch(new Vector3(_x, 6f));
             if(_neko != null)
             {
+                nekoControllers.Add(_neko);
                 _neko.state = NekoController.STATE.WALK;
                 _neko.transform.SetParent(transform);
             }
