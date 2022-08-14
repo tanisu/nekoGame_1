@@ -12,8 +12,9 @@ public class NekoController : MonoBehaviour
     CatPoolController nekoPool;
     CircleCollider2D cc2d;
     Animator anim;
+    public bool isRush;
 
-    public UnityAction HitAngryArea;
+    public UnityAction HitAngryArea,StealTarget,LoopCount,RushStart;
     public enum STATE
     {
         STOP,
@@ -32,7 +33,7 @@ public class NekoController : MonoBehaviour
         gameObject.SetActive(false);
         cc2d = GetComponent<CircleCollider2D>();
         speed = Random.Range(1.5f, 3.5f);
-        state = STATE.WALK;
+        
     }
 
     public void Settarget()
@@ -44,11 +45,24 @@ public class NekoController : MonoBehaviour
     public void ShowInStage(Vector3 _pos)
     {
         transform.position = _pos;
+        if (isRush)
+        {
+            LoopCount?.Invoke();
+        }
     }
 
     public void HideFromStage()
     {
+        if (isRush)
+        {
+            RushStart?.Invoke();
+        }
         nekoPool.Collect(this);
+    }
+
+    public void HideInRush()
+    {
+        gameObject.SetActive(false);
     }
 
     void Update()
@@ -76,7 +90,15 @@ public class NekoController : MonoBehaviour
 
         if ((state == STATE.TURN || state == STATE.ESCAPE) && transform.position.y > 6f)
         {
+
+            if (transform.GetComponentInChildren<TargetController>())
+            {
+                Destroy(transform.GetComponentInChildren<TargetController>().gameObject);
+            }
             HideFromStage();
+            
+
+            
         }
     }
 
@@ -122,12 +144,7 @@ public class NekoController : MonoBehaviour
                 state = STATE.DASH;
             }
         }
-        if (collision.CompareTag("AngerArea"))
-        {
-            
-            state = STATE.ESCAPE;
-            anim.SetBool("isEscape", true);
-        }
+
         
     }
 
@@ -136,11 +153,14 @@ public class NekoController : MonoBehaviour
         if (collision.CompareTag("Target"))
         {
             collision.transform.SetParent(transform);
-            
+            collision.GetComponent<TargetController>().OffCollider();
+            StealTarget?.Invoke();
             state = STATE.TURN;
         }
         if (collision.CompareTag("AngerArea"))
         {
+            state = STATE.ESCAPE;
+            anim.SetBool("isEscape", true);
             HitAngryArea?.Invoke();
         }
     }
@@ -153,6 +173,8 @@ public class NekoController : MonoBehaviour
     public void EscapeNeko()
     {
         state = STATE.ESCAPE;
+        anim.SetBool("isEscape", true);
+
     }
 
 

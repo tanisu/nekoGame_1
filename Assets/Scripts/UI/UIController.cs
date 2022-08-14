@@ -9,23 +9,56 @@ public class UIController : MonoBehaviour
 {
     [SerializeField] Text angerText;
     [SerializeField] Button ikariButton;
-    [SerializeField] Image cutInImage,cutInPanel;
+    [SerializeField] Image cutInImage,cutInPanel,ikariBarInner,nekoRushImage;
     [SerializeField] BariaController baria;
+    [SerializeField] GameObject gameoverPanel,nekoRushPanel;
+    IkariButtonController ikariButtonController;
 
     public UnityAction OffAngry, StartExplosion,EndExplosion;
     private void Start()
     {
         ikariButton.onClick.AddListener(_ikariCutIn);
+        ikariButtonController = ikariButton.GetComponent<IkariButtonController>();
     }
 
-    public void UpdateAngerText(int _anger)
+    public void UpdateAnger(float _anger)
     {
-        angerText.text = $"イライラ度 {_anger.ToString()}";
+        //angerText.text = $"イライラ度 {_anger.ToString()}";
+        
+        ikariBarInner.DOFillAmount(_anger, 0.1f);
     }
 
     public void ShowIkariBUtton()
     {
-        ikariButton.gameObject.SetActive(true);
+        ikariButtonController.IkariMax();
+    }
+
+
+    public void ShowGameOver()
+    {
+        gameoverPanel.SetActive(true);
+        gameoverPanel.transform.DOLocalMoveY(250f, 1.8f).SetEase(Ease.OutBounce);
+    }
+
+
+    public void NekoRushCutIn()
+    {
+        nekoRushImage.gameObject.SetActive(true);
+        nekoRushPanel.SetActive(true);
+        Sequence seq = DOTween.Sequence();
+        seq.Append(nekoRushImage.transform.DOLocalMoveX(0, 0.5f).SetEase(Ease.OutSine))
+            .AppendInterval(0.75f)
+            .AppendCallback(() =>
+            {
+                nekoRushImage.transform.DOLocalMoveX(-600, 0.5f).SetEase(Ease.InCubic).OnComplete(() =>
+                {
+                    nekoRushImage.transform.localPosition = new Vector3(600, 0);
+                    nekoRushImage.gameObject.SetActive(false);
+                    nekoRushPanel.SetActive(false);
+                });
+                
+            });
+            
     }
 
     private void _ikariCutIn()
@@ -42,11 +75,21 @@ public class UIController : MonoBehaviour
                 cutInImage.transform.DOLocalMoveX(-600, 0.5f).SetEase(Ease.InCubic).OnComplete(()=> {
                     
                     cutInImage.transform.localPosition = new Vector3(600, 0);
-                    baria.gameObject.SetActive(true);
+                    baria.StartBaria(EndExplosion);
                 });
-                ikariButton.gameObject.SetActive(false);
+                ikariButtonController.IkariStop();
+                _offCutInUI();
+                
                 OffAngry?.Invoke();
-                //EndExplosion?.Invoke();
         });
     }
+
+    private void _offCutInUI()
+    {
+        cutInImage.gameObject.SetActive(false);
+        cutInPanel.gameObject.SetActive(false);
+        
+    }
+
+    
 }

@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class AreaController : MonoBehaviour
 {
-    Transform[] targets;
+    public TargetController[] targets;
 
     private void Start()
     {
         
-        targets = GetComponentsInChildren<Transform>();
+        targets = GetComponentsInChildren<TargetController>();
     }
 
 

@@ -4,28 +4,77 @@ using UnityEngine;
 
 public class NekoPos : MonoBehaviour
 {
-    [SerializeField] CatPoolController[] nekoPools;
+    [SerializeField] public CatPoolController nekoPool;
     [SerializeField] float shortInterval, longInterval;
+
+    public List<NekoController> nekoControllers;
+    public bool canGenerat;
+    Coroutine cor;
+
+    
+
     void Start()
     {
-        StartCoroutine(_nekoGenerat());
+        
+        nekoControllers = new List<NekoController>();
     }
 
+    public void StartNekoGenerat()
+    {
+        cor = StartCoroutine(_nekoGenerat());
+    }
+
+    public void ResetNeko()
+    {
+        nekoControllers.Clear();
+        canGenerat = true;
+        cor = StartCoroutine(_nekoGenerat());
+    }
+
+    public void RushNeko()
+    {
+        StopCoroutine(cor);
+        nekoControllers.Clear();
+        canGenerat = true;
+        StartCoroutine(_nekoRush());
+    }
+
+    IEnumerator _nekoRush()
+    {
+        Debug.Log($"DO nekoRush {nekoPool.nekoList.Count}");
+        for(int i = 0; i < nekoPool.nekoList.Count; i++)
+        {
+            Debug.Log($"nekoRush {i}");
+            float _x = Random.Range(-2f, 2f);
+            NekoController _neko = nekoPool.Launch(new Vector3(_x, 6f));
+            if(_neko != null)
+            {
+                _neko.state = NekoController.STATE.WALK;
+                _neko.transform.SetParent(transform);
+            }
+            
+            yield return null;
+        }
+        
+    }
 
     IEnumerator _nekoGenerat()
     {
+        yield return null;
 
-
-        while (true)
+        while (canGenerat)
         {
             float _x = Random.Range(-2f, 2f);
             float _interval = Random.Range(shortInterval, longInterval);
-            int _idx = Random.Range(0, nekoPools.Length);
-            NekoController _neko = nekoPools[_idx].Launch(new Vector3(_x, 6f));
+            NekoController _neko = nekoPool.Launch(new Vector3(_x, 6f));
+
+            nekoControllers.Add(_neko);
+            _neko.state = NekoController.STATE.WALK;
             _neko.transform.SetParent(transform);
             yield return new WaitForSeconds(_interval);
-            
+ 
         }
-
     }
+
+
 }

@@ -2,13 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+
 public class OyajiController : MonoBehaviour
 {
     [SerializeField] GameObject AngerArea;
     Animator anim;
     [SerializeField] float AngerLimit,xLimit,speed, tiredTime;
     float time,delInterval,angerInterval;
-    bool isTired,isAngry;
+    bool isTired,isAngry, isOver;
     
 
     enum DIRECTION
@@ -47,11 +48,17 @@ public class OyajiController : MonoBehaviour
             _getAnger();
         }
 
-        if(!isAngry && !isTired)
+        if(!isAngry && !isTired && !isOver)
         {
             _walk();
         }
         
+    }
+
+    public void OyajiLoose()
+    {
+        isOver = true;
+        transform.Rotate(new Vector3(0,0,90f));
     }
 
     private void _walk()
@@ -119,6 +126,8 @@ public class OyajiController : MonoBehaviour
         }
         
     }
+
+
 
 
     IEnumerator _istied()

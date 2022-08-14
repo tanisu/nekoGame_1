@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class TargetController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    CircleCollider2D cc2d;
+
+    private void Start()
     {
-        
+        cc2d = GetComponent<CircleCollider2D>();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OffCollider()
     {
-        
+        cc2d.enabled = false;
     }
 }
