@@ -23,13 +23,13 @@ public class BariaController : MonoBehaviour
             angryPanel.enabled = true;
             angryDoom.gameObject.SetActive(false);
             Sequence seq = DOTween.Sequence();
-            seq.Append(angryPanel.DOColor(Color.red, 0.1f))
-            .Append(angryPanel.DOColor(Color.white, 0.1f))
-            .SetLoops(11).OnComplete(()=> {
+            seq.Append(angryPanel.DOColor(Color.red, 0.05f).SetLink(angryPanel.gameObject))
+            .Append(angryPanel.DOColor(Color.white, 0.05f).SetLink(angryPanel.gameObject))
+            .SetLoops(7).OnComplete(()=> {
                 _endAction?.Invoke();
                 gameObject.SetActive(false);
             });
-        });
+        }).SetLink(angryDoom.gameObject);
     }
 
 

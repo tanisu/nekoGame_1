@@ -1,52 +1,74 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class CatPoolController : MonoBehaviour
 {
-    //[SerializeField] NekoController neko;
-    [SerializeField] int maxCount;
+    
+    
     [SerializeField] NekoData[] nekoDatas;
     Queue<NekoController> nekoQueue;
+    List<Queue<NekoController>> nekoQueueBase;
+    
+    
     public List<NekoController> nekoList;
     Vector3 setPos = new Vector3(100, 100);
-    int RateMax,rota;
+    
+    public UnityAction CheckStageState;
 
     private void Awake()
     {
-        nekoQueue = new Queue<NekoController>();
-        nekoList = new List<NekoController>();
-        foreach(NekoData nekodata in nekoDatas)
-        {
-            nekodata.min = RateMax;
-            RateMax += nekodata.Rate -1;
-            nekodata.max = RateMax;
-            //Debug.Log($"min {nekodata.min} max {nekodata.max}");
-        }
-
         
-
-        for(int i= 0; i < maxCount; i++)
+        nekoQueueBase = new List<Queue<NekoController>>();    
+        for (int i = 0; i < nekoDatas.Length; i++)
         {
-            rota = Random.Range(0, RateMax);
-            
-            foreach(NekoData nekodata in nekoDatas)
+            nekoQueueBase.Add(new Queue<NekoController>());
+            for (int j = 0; j < 100; j++)
             {
-                if(rota >= nekodata.min && rota < nekodata.max)
-                {
-                    NekoController _neko = Instantiate(nekodata.neko, setPos, Quaternion.identity, transform);
-                    if(i == 0)
-                    {
-                        _neko.isRush = true;
-                    }
-                    nekoQueue.Enqueue(_neko);
-                    nekoList.Add(_neko);
-                }
+                NekoController _neko = Instantiate(nekoDatas[i].neko,setPos, Quaternion.identity, transform);
+                _neko.nekoDataIndex = i;
+                _neko.NekoInit(nekoDatas[i]);
+                nekoQueueBase[i].Enqueue(_neko);
             }
-            
         }
     }
 
+
+    public void CreateNekos(int[] _nekoArr)
+    {
+        nekoQueue = new Queue<NekoController>();
+        nekoList = new List<NekoController>();
+
+        for(int i = 0;i < _nekoArr.Length; i++)
+        {
+            for(int j = 0;j < _nekoArr[i]; j++)
+            {
+                NekoController _neko = nekoQueueBase[i].Dequeue();
+                nekoQueue.Enqueue(_neko);
+                nekoList.Add(_neko);
+            }
+        }
+        nekoList[nekoList.Count - 1].isLastCat = true;
+    }
+
+
+    public void ResetNekoQueue()
+    {
+        nekoQueue.Clear();
+        
+        foreach(NekoController _neko in nekoList)
+        {
+            if (_neko.GetComponentInChildren<TargetController>(true))
+            {
+                Destroy(_neko.GetComponentInChildren<TargetController>(true).gameObject);
+            }
+            _neko.isLastCat = false;
+            nekoQueueBase[_neko.nekoDataIndex].Enqueue(_neko);
+        }
+        nekoList.Clear();
+
+    }
 
 
     public NekoController Launch(Vector3 _pos)
@@ -67,5 +89,10 @@ public class CatPoolController : MonoBehaviour
         _neko.transform.SetParent(transform);
         _neko.gameObject.SetActive(false);
         nekoQueue.Enqueue(_neko);
+        if(nekoQueue.Count == nekoList.Count)
+        {
+            CheckStageState?.Invoke();
+        }
     }
+
 }

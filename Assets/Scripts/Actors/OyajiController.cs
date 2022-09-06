@@ -1,16 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
 
 public class OyajiController : MonoBehaviour
 {
     [SerializeField] GameObject AngerArea;
+    [SerializeField] Button KoraButton;
     Animator anim;
     [SerializeField] float AngerLimit,xLimit,speed, tiredTime;
     float time,delInterval,angerInterval;
-    bool isTired,isAngry, isOver;
-    
+    bool isTired,isAngry, isOver,isPressed;
+    Coroutine cor;
 
     enum DIRECTION
     {
@@ -33,7 +34,7 @@ public class OyajiController : MonoBehaviour
 
         if (isTired)
         {
-            StartCoroutine(_istied());
+            cor =  StartCoroutine(_istied());
         }
 
         if (Input.GetKeyDown(KeyCode.Space))
@@ -44,7 +45,8 @@ public class OyajiController : MonoBehaviour
         {
             _coolDown();
         }
-        if (Input.GetKey(KeyCode.Space)){
+        if (Input.GetKey(KeyCode.Space) || isPressed)
+        {
             _getAnger();
         }
 
@@ -87,18 +89,18 @@ public class OyajiController : MonoBehaviour
         }
     }
 
-    private void _coolDown()
+    public void _coolDown()
     {
-        
         isAngry = false;
+        isPressed = false;
         AngerArea.SetActive(false);
         anim.SetBool("IsAnger", false);
         angerInterval = AngerLimit;
-       
     }
 
-    private void _getAnger()
+    public void _getAnger()
     {
+        
         delInterval -= Time.deltaTime;
         if (delInterval <= 0)
         {
@@ -115,11 +117,14 @@ public class OyajiController : MonoBehaviour
         }
     }
 
-    private void _isAnger()
+    public void _isAnger()
     {
         if (angerInterval >= 0)
         {
+            
+            SoundController.I.PlaySE(SESoundData.SE.KORA);
             isAngry = true;
+            isPressed = true;
             AngerArea.SetActive(true);
             anim.SetBool("IsAnger", true);
             anim.Play("Oyaji_Anger");
@@ -127,6 +132,18 @@ public class OyajiController : MonoBehaviour
         
     }
 
+    public void ResetOyaji()
+    {
+        if(cor != null)
+        {
+            StopCoroutine(cor);
+        }
+        isTired = false;
+        isAngry = false;
+        isPressed = false;
+        angerInterval = AngerLimit;
+
+    }
 
 
 
@@ -138,6 +155,7 @@ public class OyajiController : MonoBehaviour
         
         yield return new WaitForSeconds(tiredTime);
         isTired = false;
+        isPressed = false;
         anim.SetBool("IsTired", false);
         angerInterval = AngerLimit;
     }

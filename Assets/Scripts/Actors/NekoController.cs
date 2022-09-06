@@ -12,9 +12,13 @@ public class NekoController : MonoBehaviour
     CatPoolController nekoPool;
     CircleCollider2D cc2d;
     Animator anim;
-    public bool isRush;
+    NekoData nekoData;
+    public bool isLastCat;
+    public bool isWait;
+    public int nekoDataIndex,score;
 
-    public UnityAction HitAngryArea,StealTarget,LoopCount,RushStart;
+    public UnityAction StealTarget,LoopCount;
+    public UnityAction<int> HitAngryArea;
     public enum STATE
     {
         STOP,
@@ -26,15 +30,18 @@ public class NekoController : MonoBehaviour
     }
     public STATE state;
 
-    private void Start()
+
+    public void NekoInit(NekoData _nekoData)
     {
+        nekoData = _nekoData;
         anim = GetComponent<Animator>();
         nekoPool = transform.parent.GetComponent<CatPoolController>();
         gameObject.SetActive(false);
         cc2d = GetComponent<CircleCollider2D>();
-        speed = Random.Range(1.5f, 3.5f);
-        
+        speed = nekoData.maxSpeed;
+        score = _nekoData.score;
     }
+
 
     public void Settarget()
     {
@@ -45,18 +52,17 @@ public class NekoController : MonoBehaviour
     public void ShowInStage(Vector3 _pos)
     {
         transform.position = _pos;
-        if (isRush)
+        cc2d.enabled = true;
+        
+        if (isLastCat)
         {
+            
             LoopCount?.Invoke();
         }
     }
 
     public void HideFromStage()
     {
-        if (isRush)
-        {
-            RushStart?.Invoke();
-        }
         nekoPool.Collect(this);
     }
 
@@ -65,45 +71,90 @@ public class NekoController : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    public void SpeedUp()
+    {
+        speed += 0.5f;
+    }
+
+    IEnumerator _stopAndGo()
+    {
+        
+        yield return new WaitForSeconds(0.5f);
+        transform.Translate(Vector3.down * speed * Time.deltaTime);
+        isWait = false;
+
+    }
+
     void Update()
     {
 
         switch (state)
         {
             case STATE.WALK:
-                transform.Translate(Vector3.down * speed * Time.deltaTime);
+
+                _walk();
                 break;
 
             case STATE.DASH:
                 transform.position = Vector3.MoveTowards(transform.position, target.position, speed * Time.deltaTime * 3);
                 break;
             case STATE.ESCAPE:
-                transform.Translate(Vector3.up * speed * Time.deltaTime * 2);
+                transform.Translate(Vector3.up * speed * Time.deltaTime * 3);
                 break;
             case STATE.TURN:
-                transform.Translate(Vector3.up * speed * Time.deltaTime * 2);
+                transform.Translate(Vector3.up * speed * Time.deltaTime * 3);
                 break;
             case STATE.LOSE:
                 transform.Translate(Vector3.up * speed * Time.deltaTime * 0.1f);
                 break;
         }
 
-        if ((state == STATE.TURN || state == STATE.ESCAPE) && transform.position.y > 6f)
+        if(state == STATE.DASH && !target.gameObject.activeSelf)
+        {
+            state = STATE.TURN;
+        }
+
+        if (
+             ((state == STATE.TURN || state == STATE.ESCAPE || state == STATE.DASH) && transform.position.y > 5.2f) 
+            || transform.position.y > 7f 
+            || transform.position.x > 3f 
+            || transform.position.x < -3f 
+            || transform.position.y < -5.5f)
         {
 
             if (transform.GetComponentInChildren<TargetController>())
             {
-                Destroy(transform.GetComponentInChildren<TargetController>().gameObject);
+                transform.GetComponentInChildren<TargetController>().gameObject.SetActive(false);
             }
             HideFromStage();
-            
-
-            
         }
+
     }
 
 
-
+    void _walk()
+    {
+        if (nekoData.NekoType == NEKO_TYPE.STRAIGHT)
+        {
+            transform.Translate(Vector3.down * speed * Time.deltaTime);
+        }
+        if (nekoData.NekoType == NEKO_TYPE.WAVE)
+        {
+            transform.position = new Vector3(Mathf.Sin(Time.time * speed) * 0.45f, transform.position.y - (speed * Time.deltaTime), 0);
+        }
+        if (nekoData.NekoType == NEKO_TYPE.STOPANDGO)
+        {
+            if (transform.position.y > -0.6f)
+            {
+                isWait = true;
+                transform.Translate(Vector3.down * speed * Time.deltaTime);
+            }
+            else if (isWait)
+            {
+                StartCoroutine(_stopAndGo());
+            }
+        }
+    }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
@@ -116,7 +167,7 @@ public class NekoController : MonoBehaviour
             {
                 state = STATE.LOSE;
                 anim.SetBool("isEscape", true);
-                cc2d.enabled = false;
+                
                 return;
             }
             else if(state == STATE.WALK)
@@ -152,16 +203,19 @@ public class NekoController : MonoBehaviour
     {
         if (collision.CompareTag("Target"))
         {
+            
             collision.transform.SetParent(transform);
             collision.GetComponent<TargetController>().OffCollider();
             StealTarget?.Invoke();
+            
             state = STATE.TURN;
         }
         if (collision.CompareTag("AngerArea"))
         {
             state = STATE.ESCAPE;
             anim.SetBool("isEscape", true);
-            HitAngryArea?.Invoke();
+            
+            HitAngryArea?.Invoke(score);
         }
     }
 

@@ -106,7 +106,7 @@ namespace Prime31.TransitionKit
 			// create the MeshFilter
 			var meshFilter = getOrAddComponent<MeshFilter>();
 			meshFilter.mesh = _transitionKitDelegate.meshForDisplay() ?? generateQuadMesh();
-
+			
 			// create the Material
 			material = getOrAddComponent<MeshRenderer>().material;
 			material.shader = _transitionKitDelegate.shaderForTransition() ?? Shader.Find( "prime[31]/Transitions/Texture With Alpha" );

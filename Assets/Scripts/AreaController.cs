@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class AreaController : MonoBehaviour
 {
-    public TargetController[] targets;
+   // private  TargetController[] targets;
 
-    private void Start()
+    //private void Start()
+    //{
+    //    targets = GetComponentsInChildren<TargetController>();
+    //}
+
+    public int GetTargetsLength()
     {
-        
-        targets = GetComponentsInChildren<TargetController>();
+        return GetComponentsInChildren<TargetController>().Length;
     }
-
-
 }

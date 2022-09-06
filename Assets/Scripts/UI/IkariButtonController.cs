@@ -27,7 +27,11 @@ public class IkariButtonController : MonoBehaviour
     public void IkariStop()
     {
         _isFlash = false;   
-        StopCoroutine(_cor);
+        if(_cor != null)
+        {
+            StopCoroutine(_cor);
+        }
+        
         _ikariImage.color = Color.white;
         _ikariButton.interactable = false;
     }

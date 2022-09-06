@@ -6,6 +6,7 @@ public class SceneButton : MonoBehaviour
 {
     public void Retry()
     {
+        SceneMove.instance.isRetry = true;
         SceneMove.instance.SceneTransition(1,1);
     }
 
