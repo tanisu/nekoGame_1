@@ -52,7 +52,7 @@ public class SceneMove : MonoBehaviour
 
     public void StageClear()
     {
-        isGameStart = true;
+        
         ImageMaskTransition mask = new ImageMaskTransition()
         {
             maskTexture = maskTexture,

@@ -1,5 +1,6 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Events;
 
@@ -45,11 +46,16 @@ public class CatPoolController : MonoBehaviour
             for(int j = 0;j < _nekoArr[i]; j++)
             {
                 NekoController _neko = nekoQueueBase[i].Dequeue();
-                nekoQueue.Enqueue(_neko);
+                
                 nekoList.Add(_neko);
             }
         }
+        nekoList = nekoList.OrderBy(a => Guid.NewGuid()).ToList();
         nekoList[nekoList.Count - 1].isLastCat = true;
+        foreach(NekoController _neko in nekoList)
+        {
+            nekoQueue.Enqueue(_neko);
+        }
     }
 
 

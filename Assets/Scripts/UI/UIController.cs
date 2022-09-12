@@ -14,6 +14,7 @@ public class UIController : MonoBehaviour
     [SerializeField] GameObject gameoverPanel,nekoRushPanel;
     [SerializeField] StageClearPanelController stageclearPanel;
     [SerializeField] Vector3 defaltPos;
+    [SerializeField] IkariPanelController ikariPanelController;
     IkariButtonController ikariButtonController;
     
     public UnityAction OffAngry, StartExplosion,EndExplosion;
@@ -32,6 +33,8 @@ public class UIController : MonoBehaviour
         gameoverPanel.transform.localPosition = defaltPos;
         stageclearPanel.transform.localPosition = defaltPos;
         UpdateAnger(0f);
+        stageclearPanel.InitScoreText();
+        ikariPanelController.ResetIkariIcons();
     }
 
     public void UpdateAnger(float _anger)
@@ -106,8 +109,8 @@ public class UIController : MonoBehaviour
         cutInImage.gameObject.SetActive(true);
         cutInPanel.gameObject.SetActive(true);
         Sequence seq = DOTween.Sequence();
-        seq.Append(cutInPanel.DOFade(1f,0.5f).SetLink(cutInPanel.gameObject))
-            .Join(cutInImage.transform.DOLocalMoveX(0, 0.3f).SetEase(Ease.OutSine).SetLink(cutInImage.gameObject))
+        seq.Append(cutInPanel.DOFade(0.75f,0.5f).SetLink(cutInPanel.gameObject))
+        .Join(cutInImage.transform.DOLocalMoveX(0, 0.3f).SetEase(Ease.OutSine).SetLink(cutInImage.gameObject))
             .AppendInterval(0.55f)
             .AppendCallback(()=> {
                 cutInPanel.DOFade(0f, 0.5f).SetLink(cutInPanel.gameObject);
@@ -120,6 +123,7 @@ public class UIController : MonoBehaviour
                 _offCutInUI();
                 
                 OffAngry?.Invoke();
+                ikariPanelController.UseIkari();
         });
     }
 

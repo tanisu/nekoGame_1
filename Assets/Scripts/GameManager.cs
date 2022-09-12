@@ -1,7 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System;
+using System.Linq;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,48 +13,57 @@ public class GameManager : MonoBehaviour
     [SerializeField] OyajiController oyaji;
     [SerializeField] AreaController area;
     [SerializeField] float addAnger;
-    [SerializeField] int maxLoopCount,minRushCount;
+    [SerializeField] int maxRushCount,minLoopCount,nekoRushCount,explodeCount,maxExplodeCount;
     [SerializeField] SpriteRenderer stageSp;
     int targetCount,loopCount,score;
     float anger;
-    bool canRush,endRush;
+    bool canRush,isExplode,isRetry,isGameOver;
     public int stage;
-    public int[] nekoNum = new int[] { 1,1,0,0,0,0,0,0};
+    public int[] nekoNum;
     Color[] stageColors;
     private void Awake()
     {
         pool = nekoPos.nekoPool;
         pool.CheckStageState = _checkStageState;
         pool.CreateNekos(nekoNum);
-        SceneMove.instance.StageChange = _changeStage;
+        
     }
 
 
     private void Start()
     {
         stageColors = new Color[] { new Color(1f, 1f, 1f, 0), new Color(1f, 0f, 0f, 0.4f), new Color(0.1f, 0.0f, 0.1f, 0.45f), new Color(0f, 0f, 0f, 0.8f) };
+        SceneMove.instance.StageChange = _changeStage;
         ui.OffAngry = _offAngry;
         ui.StartExplosion = _explosion;
         ui.EndExplosion = _endExplosion;
         ui.SetTotalScore = _setTotalScore;
+        isRetry = SceneMove.instance.isRetry;
+        SceneMove.instance.isRetry = false;
+        
         _initStage();
     }
 
     void _changeStage()
     {
-        if (SceneMove.instance.isRetry)
+        
+        if (!isRetry)
         {
-            stage = SceneMove.instance.currentStage;
-            SceneMove.instance.isRetry = false;
+            stage++;
+            
+            if(nekoNum.Sum() <= 100)
+            {
+                int nekoIdx = stage % 5 + 2;
+                nekoNum[nekoIdx] += 1;
+            }
+            
+            SceneMove.instance.currentStage = stage;
         }
         else
         {
-            stage++;
-            SceneMove.instance.currentStage = stage;
+            stage = SceneMove.instance.currentStage;
         }
-        
-        
-        
+        isRetry = false;
         ui.RsetPanels();
         _initStage();
 
@@ -61,15 +71,19 @@ public class GameManager : MonoBehaviour
 
     void _initStage()
     {
-        
         loopCount = 0;
+        nekoRushCount = 0;
         anger = 0;
-        targetCount = area.GetTargetsLength();
-        canRush = false;
-        endRush = false;
-        
+        explodeCount = 0;
+        canRush = false; 
+        isExplode = false;
         stageSp.color = stageColors[stage % stageColors.Length];
-
+        
+ 
+        targetCount = area.CreateFishs();
+        
+        
+ 
         pool.ResetNekoQueue();
         pool.CreateNekos(nekoNum);
         nekoPos.isStopGenerate = false;
@@ -90,34 +104,28 @@ public class GameManager : MonoBehaviour
     {
         yield return new WaitForSeconds(1.3f);
         nekoPos.ResetNeko();
+        SceneMove.instance.isGameStart = true;
     }
 
 
     void _loop()
     {
-        
-        if (loopCount >= minRushCount && loopCount < maxLoopCount)
+        loopCount++;
+        if (loopCount > minLoopCount )
         {
             canRush = true;
             nekoPos.StopNekoGenerat();
         }
-        else if(loopCount <= minRushCount)
-        {
-            canRush = false;
-        }else if(loopCount >= maxLoopCount)
-        {
-            canRush = false;
-            endRush = true;
-        }
-        loopCount++;
+        
     }
 
     void _checkStageState()
     {
-        if (canRush)
+        
+        if (!isGameOver &&  canRush && nekoRushCount < maxRushCount)
         {
             
-            if(loopCount == (minRushCount + 1))
+            if(nekoRushCount == 0)
             {
                 
                 foreach (NekoController neko in pool.nekoList)
@@ -128,7 +136,7 @@ public class GameManager : MonoBehaviour
             
             _nekoRush();
         }
-        if (endRush)
+        else if (nekoRushCount >= maxRushCount)
         {
             ui.OffAngry();
             ui.UpdateAnger(0);
@@ -141,13 +149,17 @@ public class GameManager : MonoBehaviour
     {    
         ui.NekoRushCutIn();
         nekoPos.RushNeko();
-        canRush = false;
+        nekoRushCount++;
+        
     }
 
     void _delTarget()
     {
-        targetCount--;
-        if(targetCount <= 0)
+        targetCount = area.GetTargetsLength();
+        
+
+
+        if (targetCount <= 0)
         {
             _gameOver();
         }
@@ -156,13 +168,18 @@ public class GameManager : MonoBehaviour
     void _addAngryGage(int _score)
     {
         score += _score;
-        anger += addAnger;
-        ui.UpdateAnger(anger);
-        ui.UpdateScoreText(score);
-        if(anger >= 1)
+        
+        if (!isExplode)
         {
-            ui.ShowIkariBUtton();
+            anger += addAnger;
+            ui.UpdateAnger(anger);
+            ui.UpdateScoreText(score);
+            if (anger >= 1)
+            {
+                ui.ShowIkariBUtton();
+            }
         }
+        
     }
 
     void _offAngry()
@@ -173,13 +190,19 @@ public class GameManager : MonoBehaviour
 
     void _explosion()
     {
-
+        explodeCount++;
         nekoPos.canGenerat = false;
         oyaji.gameObject.SetActive(false);
-        foreach (NekoController neko in nekoPos.nekoControllers)
+        foreach (NekoController neko in nekoPos.GetNekoControllers())
         {
             neko.StopNeko();
         }
+
+        if(explodeCount >= maxExplodeCount)
+        {
+            isExplode = true;
+        }
+        
         
         
     }
@@ -189,10 +212,10 @@ public class GameManager : MonoBehaviour
         
         oyaji.gameObject.SetActive(true);
         oyaji.ResetOyaji();
-        foreach(NekoController neko in nekoPos.nekoControllers)
+        foreach(NekoController neko in nekoPos.GetNekoControllers())
         {
             score += neko.score;
-            ui.UpdateScoreText(score );
+            ui.UpdateScoreText(score);
             neko.EscapeNeko();
         }
         nekoPos.ResetNeko();
@@ -206,13 +229,15 @@ public class GameManager : MonoBehaviour
 
     void _gameOver()
     {
+        isGameOver = true;
         nekoPos.canGenerat = false;
-        foreach (NekoController neko in nekoPos.nekoControllers)
+        foreach (NekoController neko in nekoPos.GetNekoControllers())
         {
             neko.StopNeko();
         }
         oyaji.OyajiLoose();
         _offAngry();
+        //naichilab.RankingLoader.Instance.SendScoreAndShowRanking(score);
         ui.ShowGameOver();
         
     }

@@ -6,16 +6,12 @@ public class NekoPos : MonoBehaviour
 {
     [SerializeField] public CatPoolController nekoPool;
     [SerializeField] float shortInterval, longInterval;
-
-    public List<NekoController> nekoControllers;
     public bool canGenerat,isStopGenerate;
     Coroutine cor;
 
-    
-
-    void Start()
+    public NekoController[] GetNekoControllers()
     {
-        nekoControllers = new List<NekoController>();
+        return GetComponentsInChildren<NekoController>();
     }
 
     public void StartNekoGenerat()
@@ -26,7 +22,7 @@ public class NekoPos : MonoBehaviour
     public void ResetNeko()
     {
         if (isStopGenerate) return;
-        nekoControllers.Clear();
+        
         canGenerat = true;
         cor = StartCoroutine(_nekoGenerat());
     }
@@ -55,7 +51,6 @@ public class NekoPos : MonoBehaviour
             NekoController _neko = nekoPool.Launch(new Vector3(_x, 6f));
             if(_neko != null)
             {
-                nekoControllers.Add(_neko);
                 _neko.state = NekoController.STATE.WALK;
                 _neko.transform.SetParent(transform);
             }
@@ -76,8 +71,6 @@ public class NekoPos : MonoBehaviour
             NekoController _neko = nekoPool.Launch(new Vector3(_x, 6f));
             if(_neko != null)
             {
-
-                nekoControllers.Add(_neko);
                 _neko.state = NekoController.STATE.WALK;
                 _neko.transform.SetParent(transform);
                 SoundController.I.PlaySE(SESoundData.SE.NEKO);

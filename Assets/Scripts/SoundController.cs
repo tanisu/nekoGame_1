@@ -106,6 +106,7 @@ public class SESoundData
     {
         KORA,
         NEKO,
+        CLEARSCORE
 
     }
 

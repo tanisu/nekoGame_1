@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class OyajiController : MonoBehaviour
 {
-    [SerializeField] GameObject AngerArea;
+    [SerializeField] GameObject AngerArea,MaskArea;
     [SerializeField] Button KoraButton;
     Animator anim;
     [SerializeField] float AngerLimit,xLimit,speed, tiredTime;
@@ -22,6 +22,8 @@ public class OyajiController : MonoBehaviour
     int _x;
     
 
+
+
     private void Start()
     {
         angerInterval = AngerLimit;
@@ -37,7 +39,7 @@ public class OyajiController : MonoBehaviour
             cor =  StartCoroutine(_istied());
         }
 
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(KeyCode.Space) )
         {
             _isAnger();
         }
@@ -61,6 +63,11 @@ public class OyajiController : MonoBehaviour
     {
         isOver = true;
         transform.Rotate(new Vector3(0,0,90f));
+    }
+
+    public void SwitchMask(bool _flg)
+    {
+        MaskArea.SetActive(_flg);
     }
 
     private void _walk()
@@ -119,7 +126,7 @@ public class OyajiController : MonoBehaviour
 
     public void _isAnger()
     {
-        if (angerInterval >= 0)
+        if (angerInterval >= 0 && !isTired)
         {
             
             SoundController.I.PlaySE(SESoundData.SE.KORA);
