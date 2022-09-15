@@ -106,7 +106,14 @@ public class SESoundData
     {
         KORA,
         NEKO,
-        CLEARSCORE
+        CLEARSCORE,
+        CUTIN,
+        EXPLODE,
+        EXPLODEDOOM,
+        SAKANATORARETA,
+        FADE,
+        IKARIUP,
+        NEKORUSH
 
     }
 

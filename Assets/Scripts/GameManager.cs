@@ -148,16 +148,17 @@ public class GameManager : MonoBehaviour
     void _nekoRush()
     {    
         ui.NekoRushCutIn();
+        
         nekoPos.RushNeko();
         nekoRushCount++;
-        
+        SoundController.I.PlaySE(SESoundData.SE.NEKORUSH);
     }
 
     void _delTarget()
     {
         targetCount = area.GetTargetsLength();
-        
 
+        SoundController.I.PlaySE(SESoundData.SE.SAKANATORARETA);
 
         if (targetCount <= 0)
         {
@@ -171,11 +172,13 @@ public class GameManager : MonoBehaviour
         
         if (!isExplode)
         {
+            SoundController.I.PlaySE(SESoundData.SE.IKARIUP);
             anger += addAnger;
             ui.UpdateAnger(anger);
             ui.UpdateScoreText(score);
             if (anger >= 1)
             {
+                
                 ui.ShowIkariBUtton();
             }
         }

@@ -108,6 +108,7 @@ public class UIController : MonoBehaviour
         StartExplosion?.Invoke();
         cutInImage.gameObject.SetActive(true);
         cutInPanel.gameObject.SetActive(true);
+        SoundController.I.PlaySE(SESoundData.SE.CUTIN);
         Sequence seq = DOTween.Sequence();
         seq.Append(cutInPanel.DOFade(0.75f,0.5f).SetLink(cutInPanel.gameObject))
         .Join(cutInImage.transform.DOLocalMoveX(0, 0.3f).SetEase(Ease.OutSine).SetLink(cutInImage.gameObject))

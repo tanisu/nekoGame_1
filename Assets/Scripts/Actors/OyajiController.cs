@@ -19,7 +19,7 @@ public class OyajiController : MonoBehaviour
         RIGHT
     }
     DIRECTION direction;
-    int _x;
+    int _x,touchCount;
     
 
 
@@ -98,6 +98,12 @@ public class OyajiController : MonoBehaviour
 
     public void _coolDown()
     {
+        Invoke("_offAnger", 0.2f);
+
+    }
+
+    void _offAnger()
+    {
         isAngry = false;
         isPressed = false;
         AngerArea.SetActive(false);
@@ -128,7 +134,20 @@ public class OyajiController : MonoBehaviour
     {
         if (angerInterval >= 0 && !isTired)
         {
-            
+
+            touchCount++;
+            Invoke("_touchDown", 0.2f);
+        }
+        
+    }
+
+
+    void _touchDown()
+    {
+        
+        if(touchCount != 2)
+        {
+            touchCount = 0;
             SoundController.I.PlaySE(SESoundData.SE.KORA);
             isAngry = true;
             isPressed = true;
@@ -136,8 +155,22 @@ public class OyajiController : MonoBehaviour
             anim.SetBool("IsAnger", true);
             anim.Play("Oyaji_Anger");
         }
-        
+        else
+        {
+            touchCount = 0;
+            switch (direction)
+            {
+                case DIRECTION.LEFT:
+                    direction = DIRECTION.RIGHT;
+                    break;
+                case DIRECTION.RIGHT:
+                    direction = DIRECTION.LEFT;
+                    break;
+            }
+        }
+
     }
+
 
     public void ResetOyaji()
     {
