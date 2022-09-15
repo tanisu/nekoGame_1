@@ -206,6 +206,7 @@ public class NekoController : MonoBehaviour
             
             collision.transform.SetParent(transform);
             collision.GetComponent<TargetController>().OffCollider();
+            cc2d.enabled = false;
             StealTarget?.Invoke();
             
             state = STATE.TURN;
@@ -214,7 +215,7 @@ public class NekoController : MonoBehaviour
         {
             state = STATE.ESCAPE;
             anim.SetBool("isEscape", true);
-            
+            cc2d.enabled = false;
             HitAngryArea?.Invoke(score);
         }
     }
