@@ -48,7 +48,7 @@ public class StageClearPanelController : MonoBehaviour
         
         if(targetCount == 5)
         {
-            bonusText.text = $"Bonus = {3000}";
+            bonusText.text = $"Bonus = 3000";
             CalcScore?.Invoke(3000);
             bonusColor = 1f;
         }
