@@ -15,4 +15,10 @@ public class SceneButton : MonoBehaviour
     {
         SceneMove.instance.SceneTransition(0, 1);
     }
+
+    public void ToTitle()
+    {
+        SceneMove.instance.isGameStart = false;
+        SceneMove.instance.SceneTransition(1, 0);
+    }
 }

@@ -26,7 +26,7 @@ public class BariaController : MonoBehaviour
             angryDoom.gameObject.SetActive(false);
             SoundController.I.PlaySE(SESoundData.SE.EXPLODE);
             Sequence seq = DOTween.Sequence();
-            seq.Append(angryPanel.DOColor(Color.red, 0.05f).SetLink(angryPanel.gameObject))
+            seq.Append(angryPanel.DOColor(new Color(0.9f,0,0,0.5f), 0.05f).SetLink(angryPanel.gameObject))
             .Append(angryPanel.DOColor(Color.white, 0.05f).SetLink(angryPanel.gameObject))
             .SetLoops(7).OnComplete(()=> {
                 _endAction?.Invoke();

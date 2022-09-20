@@ -12,14 +12,14 @@ public class OyajiController : MonoBehaviour
     float time,delInterval,angerInterval;
     bool isTired,isAngry, isOver,isPressed;
     Coroutine cor;
-    Vector2 firstPos, secondPos, currentPos;
+   // Vector2 firstPos, secondPos, currentPos;
     enum DIRECTION
     {
         LEFT,
         RIGHT
     }
     DIRECTION direction;
-    int _x,touchCount;
+    int _x;
     
 
 
@@ -38,41 +38,26 @@ public class OyajiController : MonoBehaviour
         {
             cor =  StartCoroutine(_istied());
         }
+
         /*
-        if (Input.GetKeyDown(KeyCode.Space) )
-        {
-            _isAnger();
-        }
-        if (Input.GetKeyUp(KeyCode.Space) && !isTired)
-        {
-            _coolDown();
-        }
-        if (Input.GetKey(KeyCode.Space) || isPressed)
-        {
-            _getAnger();
-        }
-
-        */
-
-
         if (Input.GetMouseButtonDown(0))
         {
             _isAnger();
-           // touchCount++;
-           // Invoke("_isDash", 0.3f);
 
         }
-        if(Input.GetMouseButton(0) || isPressed)
-        {
-            _getAnger();
-        }
+
         if(Input.GetMouseButtonUp(0) && !isTired)
         {
             _coolDown();
             
         }
+        */
+        if ( isPressed)
+        {
+            _getAnger();
+        }
 
-        if(!isAngry && !isTired && !isOver)
+        if (!isAngry && !isTired && !isOver)
         {
             _walk();
         }
@@ -80,21 +65,6 @@ public class OyajiController : MonoBehaviour
     }
 
 
-    //void _isDash()
-    //{
-    //    //Debug.Log(touchCount);
-    //    if(touchCount != 4) { touchCount = 0;return; }
-    //    else { touchCount = 0; }
-    //    StartCoroutine(_dash());
-    //}
-
-    //IEnumerator _dash()
-    //{
-    //    float beforeSpeed = speed;
-    //    speed *= 2f;
-    //    yield return new WaitForSeconds(0.5f);
-    //    speed = beforeSpeed;
-    //}
 
     public void OyajiLoose()
     {
@@ -140,6 +110,9 @@ public class OyajiController : MonoBehaviour
         AngerArea.SetActive(false);
         anim.SetBool("IsAnger", false);
         angerInterval = AngerLimit;
+
+
+        /*
         secondPos = Input.mousePosition;
         currentPos = new Vector2(secondPos.x - firstPos.x, secondPos.y - firstPos.y);
         currentPos.Normalize();
@@ -153,6 +126,7 @@ public class OyajiController : MonoBehaviour
         {
             direction = DIRECTION.RIGHT;
         }
+        */
 
         //direction = currentPos.x < -0.8f ? DIRECTION.LEFT : direction;
         //direction = currentPos.x > 0.8f ? DIRECTION.RIGHT : direction;
@@ -184,8 +158,8 @@ public class OyajiController : MonoBehaviour
     {
         if (angerInterval >= 0 && !isTired)
         {
-            firstPos = Input.mousePosition;
-            touchCount++;
+            /*firstPos = Input.mousePosition;
+            touchCount++;*/
             SoundController.I.PlaySE(SESoundData.SE.KORA);
             isAngry = true;
             isPressed = true;
@@ -229,6 +203,17 @@ public class OyajiController : MonoBehaviour
         angerInterval = AngerLimit;
     }
 
-
+    public void TurnMe()
+    {
+        switch (direction)
+        {
+            case DIRECTION.LEFT:
+                direction = DIRECTION.RIGHT;
+                break;
+            case DIRECTION.RIGHT:
+                direction = DIRECTION.LEFT;
+                break;
+        }
+    }
 
 }

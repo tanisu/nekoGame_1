@@ -32,7 +32,7 @@ public class GameManager : MonoBehaviour
 
     private void Start()
     {
-        stageColors = new Color[] { new Color(1f, 1f, 1f, 0), new Color(1f, 0f, 0f, 0.4f), new Color(0.1f, 0.0f, 0.1f, 0.45f), new Color(0f, 0f, 0f, 0.8f) };
+        stageColors = new Color[] { new Color(1f, 1f, 1f, 0), new Color(1f, 0.3f, 0.3f, 0.4f), new Color(0.1f, 0.0f, 0.1f, 0.45f), new Color(0f, 0f, 0f, 0.8f) };
         SceneMove.instance.StageChange = _changeStage;
         ui.OffAngry = _offAngry;
         ui.StartExplosion = _explosion;
@@ -47,25 +47,34 @@ public class GameManager : MonoBehaviour
     void _changeStage()
     {
         
-        if (!isRetry)
+        if( stage > 1 && stage % 3 == 0)
         {
-            stage++;
+            SoundController.I.FadeOutBGM();
             
-            if(nekoNum.Sum() <= 100)
-            {
-                int nekoIdx = stage % 5 + 2;
-                nekoNum[nekoIdx] += 1;
-            }
-            
-            SceneMove.instance.currentStage = stage;
+            //ボーナス
         }
         else
         {
-            stage = SceneMove.instance.currentStage;
+            if (!isRetry)
+            {
+                stage++;
+                if (nekoNum.Sum() <= 100)
+                {
+                    int nekoIdx = stage % 5 + 2;
+                    nekoNum[nekoIdx] += 1;
+                }
+
+                SceneMove.instance.currentStage = stage;
+            }
+            else
+            {
+                stage = SceneMove.instance.currentStage;
+            }
+            isRetry = false;
+            ui.RsetPanels();
+            _initStage();
         }
-        isRetry = false;
-        ui.RsetPanels();
-        _initStage();
+
 
     }
 

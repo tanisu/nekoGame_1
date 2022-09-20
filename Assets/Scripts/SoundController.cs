@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using DG.Tweening;
 
 public class SoundController : MonoBehaviour
 {
@@ -41,6 +41,15 @@ public class SoundController : MonoBehaviour
             PlayBGM(BGMSoundData.BGM.MAIN);
             isPlayBGM = true;
         }
+    }
+
+
+    public void FadeOutBGM()
+    {
+        bgmAudioSource.DOFade(0, 0.3f).OnComplete(() => {
+
+            StopBGM();
+        });
     }
 
     public void PlayBGM(BGMSoundData.BGM bgm)
