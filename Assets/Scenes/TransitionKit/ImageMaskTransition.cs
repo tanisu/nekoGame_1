@@ -54,8 +54,15 @@ namespace Prime31.TransitionKit
 			transitionKit.makeTextureTransparent();
 			if(SceneMove.instance.isGameStart)
             {
+				//if(SceneMove.instance.currentStage  % 3 == 0)
+    //            {
+
+    //            }
+                //else
+                //{
+					SceneMove.instance.StageChange();
+				//}
 				
-				SceneMove.instance.StageChange();
             }
 			yield return transitionKit.StartCoroutine( transitionKit.tickProgressPropertyInMaterial( duration, true ) );
 		}

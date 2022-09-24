@@ -8,6 +8,9 @@ TagManager:
   - Line
   - Area
   - AngerArea
+  - Drink
+  - Oyaji
+  - Bom
   layers:
   - Default
   - TransparentFX

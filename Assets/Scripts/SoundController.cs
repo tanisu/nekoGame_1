@@ -20,6 +20,8 @@ public class SoundController : MonoBehaviour
 
     public static SoundController I { get; private set; }
     bool isPlayBGM;
+    float beforeBGMVol;
+
 
     private void Awake()
     {
@@ -46,10 +48,17 @@ public class SoundController : MonoBehaviour
 
     public void FadeOutBGM()
     {
+        beforeBGMVol = bgmAudioSource.volume;
         bgmAudioSource.DOFade(0, 0.3f).OnComplete(() => {
 
             StopBGM();
         });
+    }
+
+    public void FadeInBGM()
+    {
+        bgmAudioSource.volume = beforeBGMVol;
+        PlayBGM(BGMSoundData.BGM.MAIN);
     }
 
     public void PlayBGM(BGMSoundData.BGM bgm)
@@ -122,7 +131,10 @@ public class SESoundData
         SAKANATORARETA,
         FADE,
         IKARIUP,
-        NEKORUSH
+        NEKORUSH,
+        BOM,
+        DRINK,
+        BUTTON
 
     }
 

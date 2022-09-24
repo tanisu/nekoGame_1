@@ -9,15 +9,15 @@ public class UIController : MonoBehaviour
 {
     [SerializeField] Text angerText,scoreText;
     [SerializeField] Button ikariButton;
-    [SerializeField] Image cutInImage,cutInPanel,ikariBarInner,nekoRushImage;
+    [SerializeField] Image cutInImage,cutInPanel,ikariBarInner,nekoRushImage, nekoRushPanel;
     [SerializeField] BariaController baria;
-    [SerializeField] GameObject gameoverPanel,nekoRushPanel;
+    [SerializeField] GameObject gameoverPanel/*,nekoRushPanel*/;
     [SerializeField] StageClearPanelController stageclearPanel;
     [SerializeField] Vector3 defaltPos;
     [SerializeField] IkariPanelController ikariPanelController;
     IkariButtonController ikariButtonController;
     
-    public UnityAction OffAngry, StartExplosion,EndExplosion;
+    public UnityAction OffAngry, StartExplosion,EndExplosion,AfterNekoRush;
     public UnityAction<int> SetTotalScore;
     int totalScore;
 
@@ -86,17 +86,19 @@ public class UIController : MonoBehaviour
     public void NekoRushCutIn()
     {
         nekoRushImage.gameObject.SetActive(true);
-        nekoRushPanel.SetActive(true);
+        nekoRushPanel.gameObject.SetActive(true);
         Sequence seq = DOTween.Sequence();
         seq.Append(nekoRushImage.transform.DOLocalMoveX(0, 0.5f).SetEase(Ease.OutSine).SetLink(nekoRushImage.gameObject))
-            .AppendInterval(0.75f)
+            .Join(nekoRushPanel.DOFade(0.75f,0.5f).SetLink(nekoRushPanel.gameObject))
+            .AppendInterval(0.55f)
             .AppendCallback(() =>
             {
-                nekoRushImage.transform.DOLocalMoveX(-600, 0.5f).SetEase(Ease.InCubic).OnComplete(() =>
+                nekoRushImage.transform.DOLocalMoveX(700, 0.5f).SetEase(Ease.InCubic).OnComplete(() =>
                 {
-                    nekoRushImage.transform.localPosition = new Vector3(600, 0);
+                    nekoRushImage.transform.localPosition = new Vector3(-700, 0);
                     nekoRushImage.gameObject.SetActive(false);
-                    nekoRushPanel.SetActive(false);
+                    nekoRushPanel.gameObject.SetActive(false);
+                    AfterNekoRush?.Invoke();
                 }).SetLink(nekoRushImage.gameObject);
                 
             });

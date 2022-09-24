@@ -13,6 +13,7 @@ public class SceneMove : MonoBehaviour
     public bool isGameStart,isRetry;
     public UnityAction StageChange;
     public int currentStage;
+    public int[] currentNekoNum;
 
     // デフォルトはBlack
     [SerializeField] Color _bgColor;
@@ -37,7 +38,7 @@ public class SceneMove : MonoBehaviour
 
     public void SceneTransition(int now, int next)
     {
-        //isGameStart = now == 1 ? true : false;
+        
         
         ImageMaskTransition mask = new ImageMaskTransition()
         {

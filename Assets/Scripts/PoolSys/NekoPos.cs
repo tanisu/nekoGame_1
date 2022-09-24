@@ -42,7 +42,7 @@ public class NekoPos : MonoBehaviour
 
     IEnumerator _nekoRush()
     {
-
+        yield return new WaitForSeconds(1.05f);
         
         for(int i = 0; i < nekoPool.nekoList.Count; i++)
         {

@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Mike_WAVE
   m_EditorClassIdentifier: 
   neko: {fileID: 8951395390264572632, guid: 44f32ef21c3f8864ab72a7c6bf25d15b, type: 3}
-  maxSpeed: 2
+  maxSpeed: 2.3
   Rate: 10
   min: 20
   max: 29

@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Stealth_STOPANDGO
   m_EditorClassIdentifier: 
   neko: {fileID: 8951395390264572632, guid: e6b171679b199384a8d6b64aea9c40b5, type: 3}
-  maxSpeed: 3.5
+  maxSpeed: 4.5
   Rate: 5
   min: 46
   max: 50
   score: 80
-  NekoType: 1
+  NekoType: 2

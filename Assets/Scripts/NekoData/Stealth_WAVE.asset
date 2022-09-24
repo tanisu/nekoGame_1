@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Stealth_WAVE
   m_EditorClassIdentifier: 
   neko: {fileID: 8951395390264572632, guid: e6b171679b199384a8d6b64aea9c40b5, type: 3}
-  maxSpeed: 3
+  maxSpeed: 4
   Rate: 5
   min: 42
   max: 46

@@ -10,9 +10,10 @@ public class OyajiController : MonoBehaviour
     Animator anim;
     [SerializeField] float AngerLimit,xLimit,speed, tiredTime;
     float time,delInterval,angerInterval;
-    bool isTired,isAngry, isOver,isPressed;
+    bool isTired,isAngry, isOver,isPressed,isHighSpeed,isStop;
     Coroutine cor;
-   // Vector2 firstPos, secondPos, currentPos;
+    SpriteRenderer sp;
+    
     enum DIRECTION
     {
         LEFT,
@@ -28,31 +29,33 @@ public class OyajiController : MonoBehaviour
     {
         angerInterval = AngerLimit;
         anim = GetComponent<Animator>();
+        sp = GetComponent<SpriteRenderer>();
+        
         delInterval = 0.1f;
     }
 
-    private void Update()
+
+    public void OyajiInit()
     {
+        transform.position = new Vector2(0f, transform.position.y);
+       
+    }
 
-        if (isTired)
+
+
+
+    public void OyajiWalk()
+    {
+        if (isStop) return;
+        if ( gameObject.activeSelf && isTired)
         {
-            cor =  StartCoroutine(_istied());
+            cor = StartCoroutine(_istied());
         }
 
-        /*
-        if (Input.GetMouseButtonDown(0))
-        {
-            _isAnger();
+        
 
-        }
 
-        if(Input.GetMouseButtonUp(0) && !isTired)
-        {
-            _coolDown();
-            
-        }
-        */
-        if ( isPressed)
+        if (isPressed && !isHighSpeed)
         {
             _getAnger();
         }
@@ -61,9 +64,7 @@ public class OyajiController : MonoBehaviour
         {
             _walk();
         }
-        
     }
-
 
 
     public void OyajiLoose()
@@ -111,26 +112,6 @@ public class OyajiController : MonoBehaviour
         anim.SetBool("IsAnger", false);
         angerInterval = AngerLimit;
 
-
-        /*
-        secondPos = Input.mousePosition;
-        currentPos = new Vector2(secondPos.x - firstPos.x, secondPos.y - firstPos.y);
-        currentPos.Normalize();
-        Debug.Log(currentPos);
-
-        if(currentPos.x < 0)
-        {
-            direction = DIRECTION.LEFT;
-        }
-        else if(currentPos.x > 0)
-        {
-            direction = DIRECTION.RIGHT;
-        }
-        */
-
-        //direction = currentPos.x < -0.8f ? DIRECTION.LEFT : direction;
-        //direction = currentPos.x > 0.8f ? DIRECTION.RIGHT : direction;
-
     }
 
 
@@ -156,10 +137,9 @@ public class OyajiController : MonoBehaviour
 
     public void _isAnger()
     {
-        if (angerInterval >= 0 && !isTired)
+        if (angerInterval >= 0 && !isTired && !isStop)
         {
-            /*firstPos = Input.mousePosition;
-            touchCount++;*/
+  
             SoundController.I.PlaySE(SESoundData.SE.KORA);
             isAngry = true;
             isPressed = true;
@@ -170,6 +150,7 @@ public class OyajiController : MonoBehaviour
         
     }
 
+    
 
 
 
@@ -180,9 +161,15 @@ public class OyajiController : MonoBehaviour
         {
             StopCoroutine(cor);
         }
+        isHighSpeed = false;
+        isStop = false;
+        
+        speed = 1f;
         isTired = false;
         isAngry = false;
         isPressed = false;
+        sp.enabled = true;
+        sp.color = new Color(1f,1f,1f,1f);
         angerInterval = AngerLimit;
         AngerArea.SetActive(false);
 
@@ -214,6 +201,53 @@ public class OyajiController : MonoBehaviour
                 direction = DIRECTION.LEFT;
                 break;
         }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Drink") && !isTired && !isStop)
+        {
+            SoundController.I.PlaySE(SESoundData.SE.DRINK);
+            cor = StartCoroutine(_speedUp());
+            collision.GetComponent<ItemController>().ItemCollect();
+        }
+
+        if(collision.CompareTag("Bom") && !isTired && !isStop)
+        {
+            SoundController.I.PlaySE(SESoundData.SE.BOM);
+            
+            BomController _bomcon = collision.GetComponent<BomController>();
+            _bomcon.Explode(transform.position);
+            
+            cor = StartCoroutine(_bom());
+
+        }
+    }
+
+    IEnumerator _bom()
+    {
+        isStop = true;
+        int i = 0;
+        while (i < 26)
+        {
+            sp.enabled = !sp.enabled;
+            yield return new WaitForSeconds(0.1f);
+            i++;
+        }
+        isStop = false;
+
+    }
+
+
+    IEnumerator _speedUp()
+    {
+        speed = 2.5f;
+        isHighSpeed = true;
+        sp.color = Color.red;
+        yield return new WaitForSeconds(4f);
+        isHighSpeed = false;
+        sp.color = Color.white;
+        speed = 1f;
     }
 
 }

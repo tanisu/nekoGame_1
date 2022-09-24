@@ -12,6 +12,7 @@ public class StageClearPanelController : MonoBehaviour
     float bonusColor;
 
     public UnityAction<int> CalcScore;
+
     public void UpdateClearStage(int _stage)
     {
         clearText.text = $"ステージ {_stage + 1} クリア";

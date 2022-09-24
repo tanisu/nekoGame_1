@@ -144,7 +144,7 @@ public class NekoController : MonoBehaviour
         }
         if (nekoData.NekoType == NEKO_TYPE.STOPANDGO)
         {
-            if (transform.position.y > -0.6f)
+            if (transform.localPosition.y > -0.6f)
             {
                 isWait = true;
                 transform.Translate(Vector3.down * speed * Time.deltaTime);
