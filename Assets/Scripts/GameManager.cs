@@ -393,6 +393,9 @@ public class GameManager : MonoBehaviour
         oyaji.OyajiLoose();
         _offAngry();
         SceneMove.instance.currentNekoNum = nekoNum;
+
+        naichilab.RankingLoader.Instance.SendScoreAndShowRanking(score);
+
         ui.ShowGameOver();
         
     }
