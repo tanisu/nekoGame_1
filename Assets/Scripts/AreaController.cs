@@ -20,7 +20,7 @@ public class AreaController : MonoBehaviour
         {
             Transform fish = Instantiate(fishs, transform).transform;
             
-            fish.localPosition = new Vector3(beforePos,-0.1f);
+            fish.localPosition = new Vector3(beforePos,0f);
             beforePos += xDiff;
         }
         return maxFish;
