@@ -6,17 +6,74 @@ public class AdmobBanner : MonoBehaviour
 {
 
     BannerView _bannerView;
+    InterstitialAd _interstitial;
+
+    public static AdmobBanner I;
+
+    private void Awake()
+    {
+        if(I == null)
+        {
+            I = this;
+        }
+    }
+
 
     void Start()
     {
-        _requestBanner();
+        //_requestBanner();
+        _requestInterstitial();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void _interstitialAd()
     {
+        if(_interstitial.IsLoaded() == true)
+        {
+            _interstitial.Show();
+        }
+        else
+        {
+            Debug.Log("not yet");
+        }
         
     }
+
+    void _requestInterstitial()
+    {
+#if UNITY_ANDROID
+        string adUnitId = "ca-app-pub-1205963622209231/7666006214";
+#else
+        String adUnitId = "unexpected_platform";
+#endif
+        _interstitial = new InterstitialAd(adUnitId);
+        _interstitial.OnAdLoaded += HandleOnAdLoaded;
+        _interstitial.OnAdFailedToLoad += HandleOnAdFailedToLoad;
+        _interstitial.OnAdClosed += HandleOnAdClosed;
+
+        AdRequest request = new AdRequest.Builder().Build();
+        _interstitial.LoadAd(request);
+    }
+
+    public void HandleOnAdLoaded(object sender,EventArgs args)
+    {
+        //Debug.Log("success Interstitial");
+    }
+
+    public void HandleOnAdFailedToLoad(object sender, AdFailedToLoadEventArgs args)
+    {
+        Debug.Log("Failed Interstitial " + args.LoadAdError);
+    }
+
+
+    public void HandleOnAdClosed(object sender,EventArgs args)
+    {
+       // Debug.Log("end interstitial");
+        _interstitial.Destroy();
+        _requestInterstitial();
+        //Debug.Log("re interstitial");
+    }
+
+    //banner
 
     void _requestBanner()
     {
@@ -45,11 +102,11 @@ public class AdmobBanner : MonoBehaviour
 
     }
 
-    #region Banner callback handlers
+#region Banner callback handlers
 
     public void HandleAdLoaded(object sender, EventArgs args)
     {
-        Debug.Log("success");
+     //   Debug.Log("success");
     }
 
 
@@ -57,6 +114,6 @@ public class AdmobBanner : MonoBehaviour
     {
         Debug.Log("failed "+ args.LoadAdError);
     }
-    #endregion
+#endregion
 
 }

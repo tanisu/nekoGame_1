@@ -49,8 +49,9 @@ public class GameManager : MonoBehaviour
         ui.AfterNekoRush = _reStartItems;
         isRetry = SceneMove.instance.isRetry;
         SceneMove.instance.isRetry = false;
-        
-        _initStage();
+        //_bonusGame();
+
+       _initStage();
 
         //var queues = itemPool.GetQueues();
         
@@ -66,30 +67,40 @@ public class GameManager : MonoBehaviour
         
     }
 
+    void _bonusGame()
+    {
+        AdmobBanner.I._interstitialAd();
+        Camera.main.transform.position = new Vector3(7f, 0, -10);
+        SoundController.I.FadeOutBGM();
+        bonus.gameObject.SetActive(true);
+        ui.SwitchKoraPanel(false);
+        bonus.BonusStart();
+        isBonus = true;
+    }
+
     void _changeStage()
     {
         
         if( stage > 1 && (stage +1) % 4 == 0 && !isBonus)
         {
-            Camera.main.transform.position = new Vector3(7f, 0,-10);
-            SoundController.I.FadeOutBGM();
-            bonus.gameObject.SetActive(true);
-            bonus.BonusStart();
-            isBonus = true;
-            //ボーナス
+            _bonusGame();
+ 
         }
         else
         {
             if (!isRetry)
             {
                 stage++;
+                
                 if (isBonus)
                 {
+                    Debug.Log("通常に戻る");
                     bonus.gameObject.SetActive(false);
                     isBonus = false;
                     Camera.main.transform.position = new Vector3(0f, 0, -10);
-                    SoundController.I.FadeInBGM();
-
+                    ui.SwitchKoraPanel(true);
+                    SoundController.I.FadeInBGM(BGMSoundData.BGM.MAIN);
+                    
                 }
 
 
@@ -117,6 +128,7 @@ public class GameManager : MonoBehaviour
             }
             else
             {
+                AdmobBanner.I._interstitialAd();
                 stage = SceneMove.instance.currentStage;
                 if(SceneMove.instance.currentNekoNum != null)
                 {
@@ -156,6 +168,12 @@ public class GameManager : MonoBehaviour
                 
             }
             isRetry = false;
+
+
+            
+            
+
+
             _initStage();
         }
         ui.RsetPanels();

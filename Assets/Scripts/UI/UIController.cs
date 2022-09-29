@@ -11,7 +11,7 @@ public class UIController : MonoBehaviour
     [SerializeField] Button ikariButton;
     [SerializeField] Image cutInImage,cutInPanel,ikariBarInner,nekoRushImage, nekoRushPanel;
     [SerializeField] BariaController baria;
-    [SerializeField] GameObject gameoverPanel/*,nekoRushPanel*/;
+    [SerializeField] GameObject gameoverPanel,koraPanel;
     [SerializeField] StageClearPanelController stageclearPanel;
     [SerializeField] Vector3 defaltPos;
     [SerializeField] IkariPanelController ikariPanelController;
@@ -26,6 +26,11 @@ public class UIController : MonoBehaviour
         ikariButton.onClick.AddListener(_ikariCutIn);
         ikariButtonController = ikariButton.GetComponent<IkariButtonController>();
         stageclearPanel.CalcScore = _calcScore;
+    }
+
+    public void SwitchKoraPanel(bool _bool)
+    {
+        koraPanel.SetActive(_bool);
     }
 
     public void RsetPanels()
