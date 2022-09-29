@@ -55,10 +55,10 @@ public class SoundController : MonoBehaviour
         });
     }
 
-    public void FadeInBGM()
+    public void FadeInBGM(BGMSoundData.BGM bgm)
     {
         bgmAudioSource.volume = beforeBGMVol;
-        PlayBGM(BGMSoundData.BGM.MAIN);
+        PlayBGM(bgm);
     }
 
     public void PlayBGM(BGMSoundData.BGM bgm)
@@ -66,7 +66,7 @@ public class SoundController : MonoBehaviour
         BGMSoundData data = bGMSoundDatas.Find(data => data.bgm == bgm);
         bgmAudioSource.clip = data.audioClip;
         bgmAudioSource.volume = data.volume * bgmVolume * mastarVolume;
-
+        
         bgmAudioSource.Play();
     }
 
@@ -107,7 +107,8 @@ public class BGMSoundData
     public enum BGM
     {
         TITLE,
-        MAIN
+        MAIN,
+        BONUS
 
     }
 

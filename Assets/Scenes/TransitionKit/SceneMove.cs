@@ -35,6 +35,10 @@ public class SceneMove : MonoBehaviour
     #endregion
 
     
+    public int GetCurrrentSceneIndex()
+    {
+        return SceneManager.GetActiveScene().buildIndex;
+    }
 
     public void SceneTransition(int now, int next)
     {

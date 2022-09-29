@@ -28,4 +28,10 @@ public class SceneButton : MonoBehaviour
     {
         SoundController.I.PlaySE(SESoundData.SE.BUTTON);
     }
+
+    public void SelectScene(int _next)
+    {
+        _pushSE();
+        SceneMove.instance.SceneTransition(SceneMove.instance.GetCurrrentSceneIndex(),_next);
+    }
 }
