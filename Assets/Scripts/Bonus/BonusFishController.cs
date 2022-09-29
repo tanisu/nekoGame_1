@@ -36,12 +36,4 @@ public class BonusFishController : MonoBehaviour
         rb2d.simulated = true;
         pool.Collect(this);
     }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("BonusDebuneko"))
-        {
-            HideFromStage();
-        }
-    }
 }

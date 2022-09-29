@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 7770049342736398393}
   m_Layer: 0
   m_Name: BonusFish
-  m_TagString: BonusFish
+  m_TagString: Target
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

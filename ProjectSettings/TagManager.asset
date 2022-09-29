@@ -11,8 +11,6 @@ TagManager:
   - Drink
   - Oyaji
   - Bom
-  - BonusFish
-  - BonusDebuneko
   layers:
   - Default
   - TransparentFX

@@ -49,9 +49,9 @@ public class GameManager : MonoBehaviour
         ui.AfterNekoRush = _reStartItems;
         isRetry = SceneMove.instance.isRetry;
         SceneMove.instance.isRetry = false;
-        _bonusGame();
+        //_bonusGame();
 
-        //_initStage();
+       _initStage();
 
         //var queues = itemPool.GetQueues();
         
@@ -69,7 +69,7 @@ public class GameManager : MonoBehaviour
 
     void _bonusGame()
     {
-        
+        AdmobBanner.I._interstitialAd();
         Camera.main.transform.position = new Vector3(7f, 0, -10);
         SoundController.I.FadeOutBGM();
         bonus.gameObject.SetActive(true);
@@ -83,7 +83,6 @@ public class GameManager : MonoBehaviour
         
         if( stage > 1 && (stage +1) % 4 == 0 && !isBonus)
         {
-            AdmobBanner.I._interstitialAd();
             _bonusGame();
  
         }
@@ -95,7 +94,7 @@ public class GameManager : MonoBehaviour
                 
                 if (isBonus)
                 {
-                    
+                    Debug.Log("í èÌÇ…ñﬂÇÈ");
                     bonus.gameObject.SetActive(false);
                     isBonus = false;
                     Camera.main.transform.position = new Vector3(0f, 0, -10);
