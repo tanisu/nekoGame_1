@@ -48,12 +48,11 @@ namespace naichilab
         {
             try
             {
-                /*
                 switch (Type)
                 {
                     case ScoreType.Number:
                         double d = double.Parse(scoreText);
-                        //return new NumberScore(d, CustomFormat);
+                        return new NumberScore(d, CustomFormat);
                         break;
                     case ScoreType.Time:
                         long ticks = long.Parse(scoreText);
@@ -61,22 +60,9 @@ namespace naichilab
                         return new TimeScore(t, CustomFormat);
                         break;
                 }
-                */
-                if(Type == ScoreType.Number)
-                {
-                    double d = double.Parse(scoreText);
-                    return new NumberScore(d, CustomFormat);
-                }
-                if(Type == ScoreType.Time)
-                {
-                    long ticks = long.Parse(scoreText);
-                    TimeSpan t = new TimeSpan(ticks);
-                    return new TimeScore(t, CustomFormat);
-                }
             }
             catch (Exception ex)
             {
-                Debug.LogWarning(ex.Message);
                 Debug.LogWarning("不正なデータが渡されました。[" + scoreText + "]");
             }
 
