@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4593622234709396414}
   m_Layer: 0
   m_Name: DebunekoBonus
-  m_TagString: Untagged
+  m_TagString: BonusDebuneko
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

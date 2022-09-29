@@ -31,14 +31,14 @@ public class BonusController : MonoBehaviour
 
     private void _endBonus()
     {
-        Debug.Log("controller Bonus End");
+        
         StartCoroutine(_changeStage());
     }
 
     IEnumerator _changeStage()
     {
         yield return new WaitForSeconds(3f);
-        Debug.Log("‚±‚ê2‰ñŒÄ‚Î‚ê‚½‚çŒ©’¼‚µ");
+        
         SceneMove.instance.StageClear();
     }
 }
