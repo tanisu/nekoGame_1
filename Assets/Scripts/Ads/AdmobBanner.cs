@@ -21,7 +21,7 @@ public class AdmobBanner : MonoBehaviour
 
     void Start()
     {
-        //_requestBanner();
+        _requestBanner();
         _requestInterstitial();
     }
 
@@ -92,7 +92,7 @@ public class AdmobBanner : MonoBehaviour
         }
 
         AdSize adaptiveSize = AdSize.GetCurrentOrientationAnchoredAdaptiveBannerAdSizeWithWidth(AdSize.FullWidth);
-        _bannerView = new BannerView(adUnitId, adaptiveSize, AdPosition.Top);
+        _bannerView = new BannerView(adUnitId, adaptiveSize, AdPosition.Bottom);
 
         _bannerView.OnAdLoaded += HandleAdLoaded;
         _bannerView.OnAdFailedToLoad += HandleAdFailedToLoad;
