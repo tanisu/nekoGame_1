@@ -10,47 +10,51 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5b11a58205ec3474ca216360e9fa74a8, type: 3}
-  m_Name: UITable Shared Data
+  m_Name: Ranking Shared Data
   m_EditorClassIdentifier: 
-  m_TableCollectionName: UITable
-  m_TableCollectionNameGuidString: 2c9ef69183a05a8469e5398f7e83ef6b
+  m_TableCollectionName: Ranking
+  m_TableCollectionNameGuidString: 2ec91ce703bdaea4499675d0c64b3056
   m_Entries:
-  - m_Id: 28182097920
-    m_Key: GameStart
+  - m_Id: 278955339776
+    m_Key: Your High Score
     m_Metadata:
       m_Items: []
-  - m_Id: 263633547264
-    m_Key: HowTo
+  - m_Id: 461550170112
+    m_Key: Score this time
     m_Metadata:
       m_Items: []
-  - m_Id: 608434696192
-    m_Key: GameOver
+  - m_Id: 30455410688
+    m_Key: High score
     m_Metadata:
       m_Items: []
-  - m_Id: 793042792448
-    m_Key: Retry
+  - m_Id: 810629509120
+    m_Key: Send High Score
     m_Metadata:
       m_Items: []
-  - m_Id: 1112367738880
-    m_Key: Quit
+  - m_Id: 1043891531776
+    m_Key: Only score
     m_Metadata:
       m_Items: []
-  - m_Id: 1354332942336
-    m_Key: Turn
+  - m_Id: 1260766408704
+    m_Key: Placeholder
     m_Metadata:
       m_Items: []
-  - m_Id: 2749081628672
-    m_Key: BonusHeader
+  - m_Id: 1344019148800
+    m_Key: Send
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1641269473280
+    m_Key: Online Rankings
     m_Metadata:
       m_Items: []
   m_Metadata:
     m_Items: []
   m_KeyGenerator:
-    rid: 6934711215011922120
+    rid: 6934711215599124507
   references:
     version: 2
     RefIds:
-    - rid: 6934711215011922120
+    - rid: 6934711215599124507
       type: {class: DistributedUIDGenerator, ns: UnityEngine.Localization.Tables, asm: Unity.Localization}
       data:
-        m_CustomEpoch: 1664952294872
+        m_CustomEpoch: 1664953057884

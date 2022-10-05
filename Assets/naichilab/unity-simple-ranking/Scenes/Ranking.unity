@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 26964921}
   - component: {fileID: 26964923}
   - component: {fileID: 26964922}
+  - component: {fileID: 26964924}
   m_Layer: 5
   m_Name: CaptionTitle
   m_TagString: Untagged
@@ -194,7 +195,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u30CF\u30A4\u30B9\u30B3\u30A2\u30E9\u30F3\u30AD\u30F3\u30B0"
+  m_Text: 
 --- !u!222 &26964923
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -203,6 +204,46 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 26964920}
   m_CullTransparentMesh: 1
+--- !u!114 &26964924
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 26964920}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:2ec91ce703bdaea4499675d0c64b3056
+    m_TableEntryReference:
+      m_KeyId: 30455410688
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 26964922}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &126835152
 GameObject:
   m_ObjectHideFlags: 0
@@ -214,6 +255,7 @@ GameObject:
   - component: {fileID: 126835153}
   - component: {fileID: 126835155}
   - component: {fileID: 126835154}
+  - component: {fileID: 126835156}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -274,7 +316,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u9001\u4FE1"
+  m_Text: 
 --- !u!222 &126835155
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -283,6 +325,46 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 126835152}
   m_CullTransparentMesh: 1
+--- !u!114 &126835156
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 126835152}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:2ec91ce703bdaea4499675d0c64b3056
+    m_TableEntryReference:
+      m_KeyId: 1344019148800
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 126835154}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &160891012
 GameObject:
   m_ObjectHideFlags: 0
@@ -294,6 +376,7 @@ GameObject:
   - component: {fileID: 160891013}
   - component: {fileID: 160891015}
   - component: {fileID: 160891014}
+  - component: {fileID: 160891016}
   m_Layer: 5
   m_Name: CaptionSend
   m_TagString: Untagged
@@ -354,7 +437,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u30CF\u30A4\u30B9\u30B3\u30A2\u9001\u4FE1"
+  m_Text: 
 --- !u!222 &160891015
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -363,6 +446,46 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 160891012}
   m_CullTransparentMesh: 1
+--- !u!114 &160891016
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 160891012}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:2ec91ce703bdaea4499675d0c64b3056
+    m_TableEntryReference:
+      m_KeyId: 810629509120
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 160891014}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &378967985
 GameObject:
   m_ObjectHideFlags: 0
@@ -374,6 +497,7 @@ GameObject:
   - component: {fileID: 378967986}
   - component: {fileID: 378967988}
   - component: {fileID: 378967987}
+  - component: {fileID: 378967989}
   m_Layer: 5
   m_Name: CaptionScore
   m_TagString: Untagged
@@ -434,7 +558,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u4ECA\u56DE\u306E\u30B9\u30B3\u30A2"
+  m_Text: 
 --- !u!222 &378967988
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -443,6 +567,46 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 378967985}
   m_CullTransparentMesh: 1
+--- !u!114 &378967989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 378967985}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:2ec91ce703bdaea4499675d0c64b3056
+    m_TableEntryReference:
+      m_KeyId: 461550170112
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 378967987}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &387416514
 GameObject:
   m_ObjectHideFlags: 0
@@ -454,6 +618,7 @@ GameObject:
   - component: {fileID: 387416515}
   - component: {fileID: 387416517}
   - component: {fileID: 387416516}
+  - component: {fileID: 387416518}
   m_Layer: 5
   m_Name: CaptionNotice
   m_TagString: Untagged
@@ -514,7 +679,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u203B\u30CF\u30A4\u30B9\u30B3\u30A2\u66F4\u65B0\u6642\u306E\u307F\u9001\u4FE1\u3067\u304D\u307E\u3059\u3002"
+  m_Text: 
 --- !u!222 &387416517
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -523,6 +688,46 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 387416514}
   m_CullTransparentMesh: 1
+--- !u!114 &387416518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 387416514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:2ec91ce703bdaea4499675d0c64b3056
+    m_TableEntryReference:
+      m_KeyId: 1043891531776
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 387416516}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &435532229
 GameObject:
   m_ObjectHideFlags: 0
@@ -534,6 +739,7 @@ GameObject:
   - component: {fileID: 435532230}
   - component: {fileID: 435532232}
   - component: {fileID: 435532231}
+  - component: {fileID: 435532233}
   m_Layer: 5
   m_Name: Text
   m_TagString: Untagged
@@ -603,6 +809,34 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 435532229}
   m_CullTransparentMesh: 1
+--- !u!114 &435532233
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 435532229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: 
+    m_TableEntryReference:
+      m_KeyId: 0
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls: []
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &524995733
 GameObject:
   m_ObjectHideFlags: 0
@@ -614,6 +848,7 @@ GameObject:
   - component: {fileID: 524995734}
   - component: {fileID: 524995736}
   - component: {fileID: 524995735}
+  - component: {fileID: 524995737}
   m_Layer: 5
   m_Name: CaptionHighScore
   m_TagString: Untagged
@@ -674,7 +909,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u3042\u306A\u305F\u306E\u30CF\u30A4\u30B9\u30B3\u30A2"
+  m_Text: 
 --- !u!222 &524995736
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -683,6 +918,46 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 524995733}
   m_CullTransparentMesh: 1
+--- !u!114 &524995737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 524995733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:2ec91ce703bdaea4499675d0c64b3056
+    m_TableEntryReference:
+      m_KeyId: 278955339776
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 524995735}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &685691403
 GameObject:
   m_ObjectHideFlags: 0
@@ -694,6 +969,7 @@ GameObject:
   - component: {fileID: 685691404}
   - component: {fileID: 685691406}
   - component: {fileID: 685691405}
+  - component: {fileID: 685691407}
   m_Layer: 5
   m_Name: CaptionRanking
   m_TagString: Untagged
@@ -754,7 +1030,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u30AA\u30F3\u30E9\u30A4\u30F3\u30E9\u30F3\u30AD\u30F3\u30B0"
+  m_Text: 
 --- !u!222 &685691406
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -763,6 +1039,46 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 685691403}
   m_CullTransparentMesh: 1
+--- !u!114 &685691407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 685691403}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:2ec91ce703bdaea4499675d0c64b3056
+    m_TableEntryReference:
+      m_KeyId: 1641269473280
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 685691405}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &699432287
 GameObject:
   m_ObjectHideFlags: 0
@@ -1514,6 +1830,7 @@ GameObject:
   - component: {fileID: 1436471571}
   - component: {fileID: 1436471573}
   - component: {fileID: 1436471572}
+  - component: {fileID: 1436471574}
   m_Layer: 5
   m_Name: Placeholder
   m_TagString: Untagged
@@ -1574,7 +1891,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: "\u540D\u524D\u3092\u5165\u529B"
+  m_Text: 
 --- !u!222 &1436471573
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1583,6 +1900,46 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1436471570}
   m_CullTransparentMesh: 1
+--- !u!114 &1436471574
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1436471570}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56eb0353ae6e5124bb35b17aff880f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_StringReference:
+    m_TableReference:
+      m_TableCollectionName: GUID:2ec91ce703bdaea4499675d0c64b3056
+    m_TableEntryReference:
+      m_KeyId: 1260766408704
+      m_Key: 
+    m_FallbackState: 0
+    m_WaitForCompletion: 0
+    m_LocalVariables: []
+  m_FormatArguments: []
+  m_UpdateString:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1436471572}
+        m_TargetAssemblyTypeName: UnityEngine.UI.Text, UnityEngine.UI
+        m_MethodName: set_text
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  references:
+    version: 2
+    RefIds: []
 --- !u!1 &1794718815
 GameObject:
   m_ObjectHideFlags: 0

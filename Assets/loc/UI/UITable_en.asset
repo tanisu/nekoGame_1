@@ -42,6 +42,10 @@ MonoBehaviour:
     m_Localized: Turn
     m_Metadata:
       m_Items: []
+  - m_Id: 2749081628672
+    m_Localized: Bonus Stage
+    m_Metadata:
+      m_Items: []
   references:
     version: 2
     RefIds: []
