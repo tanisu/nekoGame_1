@@ -11,12 +11,15 @@ public class UIController : MonoBehaviour
     [SerializeField] Button ikariButton;
     [SerializeField] Image cutInImage,cutInPanel,ikariBarInner,nekoRushImage, nekoRushPanel;
     [SerializeField] BariaController baria;
-    [SerializeField] GameObject gameoverPanel,koraPanel;
+    [SerializeField] GameObject gameoverPanel,koraPanel,ikariPanel;
     [SerializeField] StageClearPanelController stageclearPanel;
     [SerializeField] Vector3 defaltPos;
     [SerializeField] IkariPanelController ikariPanelController;
+    
     IkariButtonController ikariButtonController;
     
+    public TutorialController tutorial;
+    public BonusTutorialController bonusTutorial;
     public UnityAction OffAngry, StartExplosion,EndExplosion,AfterNekoRush;
     public UnityAction<int> SetTotalScore;
     int totalScore;
@@ -31,7 +34,10 @@ public class UIController : MonoBehaviour
     public void SwitchKoraPanel(bool _bool)
     {
         koraPanel.SetActive(_bool);
+        ikariPanel.SetActive(_bool);
     }
+
+    
 
     public void RsetPanels()
     {

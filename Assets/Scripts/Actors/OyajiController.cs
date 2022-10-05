@@ -9,6 +9,7 @@ public class OyajiController : MonoBehaviour
     [SerializeField] Button KoraButton;
     Animator anim;
     [SerializeField] float AngerLimit,xLimit,speed, tiredTime;
+    
     float time,delInterval,angerInterval;
     bool isTired,isAngry, isOver,isPressed,isHighSpeed,isStop;
     Coroutine cor;
@@ -207,6 +208,7 @@ public class OyajiController : MonoBehaviour
     {
         if (collision.CompareTag("Drink") && !isTired && !isStop)
         {
+            
             SoundController.I.PlaySE(SESoundData.SE.DRINK);
             cor = StartCoroutine(_speedUp());
             collision.GetComponent<ItemController>().ItemCollect();

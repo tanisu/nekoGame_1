@@ -24,6 +24,7 @@ public class BonusPoolController : MonoBehaviour
             for(int j = 0; j < 10; j++)
             {
                 BonusFishController _obj = Instantiate(bonusDatas[i].bonusFish, setPos, Quaternion.identity, transform);
+                _obj.fishData = bonusDatas[i];
                 bonusList.Add(_obj);
             }
         }
@@ -48,7 +49,6 @@ public class BonusPoolController : MonoBehaviour
 
 
         BonusFishController _bonus = bonusQueue.Dequeue();
-        _bonus.gameObject.SetActive(true);
         _bonus.gameObject.transform.localPosition = _pos;
         return _bonus;
     }

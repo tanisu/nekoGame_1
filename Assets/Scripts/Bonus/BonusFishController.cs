@@ -6,12 +6,15 @@ public class BonusFishController : MonoBehaviour
 {
     BonusPoolController pool;
     Rigidbody2D rb2d;
+    public BonusData fishData;
 
-    void Start()
+
+    public void Init()
     {
         pool = transform.parent.GetComponent<BonusPoolController>();
         rb2d = GetComponent<Rigidbody2D>();
-        gameObject.SetActive(false);
+        gameObject.SetActive(true);
+        rb2d.AddForce(transform.up * 7f,ForceMode2D.Impulse);
     }
 
     void Update()
@@ -23,12 +26,7 @@ public class BonusFishController : MonoBehaviour
         }
     }
 
-    public void OnStage()
-    {
-        gameObject.SetActive(true);
-        //rb2d.simulated = true;
-       // rb2d.AddForce(transform.up * 1f);
-    }
+
 
     public void HideFromStage()
     {

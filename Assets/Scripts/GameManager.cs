@@ -17,12 +17,14 @@ public class GameManager : MonoBehaviour
     [SerializeField] OyajiController oyaji;
     [SerializeField] AreaController area;
     [SerializeField] BonusController bonus;
+    [SerializeField] BonusNeko bonusNeko;
     [SerializeField] float addAnger;
     [SerializeField] int maxRushCount,minLoopCount,nekoRushCount,explodeCount,maxExplodeCount;
     [SerializeField] SpriteRenderer stageSp;
     int targetCount,loopCount,score;
     float anger;
     bool canRush,isExplode,isRetry,isGameOver,isPlaing,isBonus;
+    public bool isNotFirstTime;
     public int stage;
     public int[] nekoNum;
     Color[] stageColors;
@@ -47,14 +49,23 @@ public class GameManager : MonoBehaviour
         ui.EndExplosion = _endExplosion;
         ui.SetTotalScore = _setTotalScore;
         ui.AfterNekoRush = _reStartItems;
+        ui.tutorial.EndTutorial = _endTutorial;
+        ui.bonusTutorial.EndTutorial = _endBonusTutorial;
+        bonusNeko.GetBonus = _updateScore;
         isRetry = SceneMove.instance.isRetry;
         SceneMove.instance.isRetry = false;
-        _bonusGame();
 
-       //_initStage();
 
-        //var queues = itemPool.GetQueues();
-        
+        //_bonusGame();
+        if (PlayerPrefs.GetInt("notFirst") == 1)
+        {
+            _initStage();
+            ui.tutorial.gameObject.SetActive(false);
+        }
+        else
+        {
+            ui.tutorial.gameObject.SetActive(true);
+        }
     }
 
 
@@ -64,17 +75,69 @@ public class GameManager : MonoBehaviour
         {
             oyaji.OyajiWalk();
         }
-        
+
+    }
+
+    void _endTutorial()
+    {
+        PlayerPrefs.SetInt("notFirst",1);
+        _initStage();
+
+    }
+
+
+    void _initStage()
+    {
+        loopCount = 0;
+        nekoRushCount = 0;
+        anger = 0;
+        explodeCount = 0;
+        canRush = false;
+        isExplode = false;
+        stageSp.color = stageColors[stage % stageColors.Length];
+
+
+        targetCount = area.CreateFishs();
+
+        oyaji.OyajiInit();
+
+        pool.ResetNekoQueue();
+        pool.CreateNekos(nekoNum);
+        nekoPos.isStopGenerate = false;
+        foreach (NekoController neko in pool.nekoList)
+        {
+            neko.HitAngryArea = _addAngryGage;
+            neko.StealTarget = _delTarget;
+            neko.LoopCount = _loop;
+        }
+        StartCoroutine(_startNeko());
+    }
+
+    void _endBonusTutorial()
+    {
+        SoundController.I.FadeOutBGM();
+        bonus.BonusStart();
     }
 
     void _bonusGame()
     {
         
         Camera.main.transform.position = new Vector3(7f, 0, -10);
-        SoundController.I.FadeOutBGM();
+        
         bonus.gameObject.SetActive(true);
         ui.SwitchKoraPanel(false);
-        bonus.BonusStart();
+
+        if (PlayerPrefs.GetInt("notFirstBonus") == 1)
+        {
+            SoundController.I.FadeOutBGM();
+            bonus.BonusStart();
+        }
+        else
+        {
+            ui.bonusTutorial.gameObject.SetActive(true);
+            PlayerPrefs.SetInt("notFirstBonus", 1);
+        }
+
         isBonus = true;
     }
 
@@ -180,32 +243,7 @@ public class GameManager : MonoBehaviour
         ui.RsetPanels();
     }
 
-    void _initStage()
-    {
-        loopCount = 0;
-        nekoRushCount = 0;
-        anger = 0;
-        explodeCount = 0;
-        canRush = false; 
-        isExplode = false;
-        stageSp.color = stageColors[stage % stageColors.Length];
-        
- 
-        targetCount = area.CreateFishs();
 
-        oyaji.OyajiInit();
- 
-        pool.ResetNekoQueue();
-        pool.CreateNekos(nekoNum);
-        nekoPos.isStopGenerate = false;
-        foreach (NekoController neko in pool.nekoList)
-        {
-            neko.HitAngryArea = _addAngryGage;
-            neko.StealTarget = _delTarget;
-            neko.LoopCount = _loop;
-        }
-        StartCoroutine(_startNeko());
-    }
 
     IEnumerator _startNeko()
     {
@@ -325,6 +363,11 @@ public class GameManager : MonoBehaviour
         {
             _gameOver();
         }
+    }
+
+    void _updateScore(int _score) {
+        score += _score;
+        ui.UpdateScoreText(score);
     }
 
     void _addAngryGage(int _score)

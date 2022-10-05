@@ -41,8 +41,7 @@ public class BonusPos : MonoBehaviour
             
             if(_fish != null)
             {
-                //èoåªÇµÇΩÇÁè„Ç…çsÇ´ÇΩÇ¢
-                //_fish.OnStage();
+                _fish.Init();
             }
             
         }
