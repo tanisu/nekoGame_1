@@ -1,0 +1,87 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e9620f8c34305754d8cc9a7e49e852d9, type: 3}
+  m_Name: TutorialTable_en
+  m_EditorClassIdentifier: 
+  m_LocaleId:
+    m_Code: en
+  m_SharedData: {fileID: 11400000, guid: beb3d1fe61a1d1447bb4341cb988512f, type: 2}
+  m_Metadata:
+    m_Items: []
+  m_TableData:
+  - m_Id: 14412197888
+    m_Localized: 'Cats are coming for the fish.
+
+      The player controls the cat
+      and drives it away.
+
+      The stage is cleared when all of the cats are driven
+      away.
+
+      If all the fish are taken, the game is over.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 445091721216
+    m_Localized: 'The player moves left and right on his own.
+
+      Tapping a turn
+      will change the direction in which the player is moving.
+
+      Tap the screen
+      to say "Hey!" and he gets angry.
+
+      Nearby cats will run away.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 727347408896
+    m_Localized: 'When you drive the cat away, the anger gauge will build up.
+
+      When
+      it reaches the maximum, you can tap the rage button.
+
+      Tapping the rage
+      button activates the rage BOM, and all the cats on the screen run away at once.
+
+      cats
+      on the screen run away at once.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 912504958976
+    m_Localized: 'Sometimes items will fall from above.
+
+      Taking a drink will
+      make the player move faster for a certain period of time.
+
+      If a bomb
+      is taken, the player will not be able to move for a certain period of time,
+      so be careful.'
+    m_Metadata:
+      m_Items: []
+  - m_Id: 1447765258240
+    m_Localized: 'In the bonus stage, you control a fat cat.
+
+      Pick up as many
+      fish as possible that the man drops.
+
+      The score is 100 points for a
+      normal fish and 500 points for a red fish.
+
+      Use the turn buttons to
+      change the direction of the fat cat and pick up as many fish as possible.
+
+      and
+      pick up as many fish as you can.'
+    m_Metadata:
+      m_Items: []
+  references:
+    version: 2
+    RefIds: []
