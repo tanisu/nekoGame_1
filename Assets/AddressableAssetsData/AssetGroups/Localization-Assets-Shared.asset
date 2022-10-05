@@ -29,6 +29,10 @@ MonoBehaviour:
     m_Address: Assets/loc/UI/UITable Shared Data.asset
     m_ReadOnly: 1
     m_SerializedLabels: []
+  - m_GUID: 2ec91ce703bdaea4499675d0c64b3056
+    m_Address: Assets/loc/Ranking/Ranking Shared Data.asset
+    m_ReadOnly: 1
+    m_SerializedLabels: []
   m_ReadOnly: 1
   m_Settings: {fileID: 11400000, guid: 0545ccdefe790504382433249751a4ad, type: 2}
   m_SchemaSet:
