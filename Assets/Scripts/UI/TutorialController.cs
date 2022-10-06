@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+//using UnityEngine.Localization;
 using DG.Tweening;
 using UnityEngine.Events;
 
@@ -12,6 +13,8 @@ public class TutorialController : MonoBehaviour
     [SerializeField] Text tutorialHeader;
     [SerializeField] Transform tutoriarlImagesTf;
     [SerializeField] Image[] images;
+    //[SerializeField] LocalizedString localizedString;
+
     int currentPage, pageMax;
     float moveRange = 500f;
     public UnityAction EndTutorial;
